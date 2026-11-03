@@ -16,7 +16,7 @@ tags:
   - "#automatizacion"
 ---
 
-# 🎬 Ficha Técnica: DaVinci Resolve Auto-Cut Plugin
+# Ficha Técnica: DaVinci Resolve Auto-Cut Plugin
 
 Herramienta de automatización audiovisual de alto rendimiento diseñada por **Shair Fernando Cuello López** (`spukerrs`). Conecta modelos locales de detección de actividad vocal (*Voice Activity Detection*) con la API interna de **DaVinci Resolve Studio** para suprimir de forma inteligente silencios, pausas vacías y tomas muertas en la línea de tiempo, reduciendo drásticamente el tiempo de premontaje sin costo de cómputo en la nube.
 
@@ -26,7 +26,7 @@ Herramienta de automatización audiovisual de alto rendimiento diseñada por **S
 
 ---
 
-## 🛑 1. El Problema: La Fricción del Premontaje Manual
+## 1. El Problema: La Fricción del Premontaje Manual
 
 En la producción audiovisual contemporánea (podcasts, entrevistas, tomas multicámara, tutoriales y cursos educativos), el proceso de **premontaje o corte en bruto (*rough cut*)** representa entre el 40% y el 70% del tiempo total invertido por el editor:
 
@@ -39,7 +39,7 @@ En la producción audiovisual contemporánea (podcasts, entrevistas, tomas multi
 
 ---
 
-## 🏗️ 2. Arquitectura de la Solución Técnica
+## 2. Arquitectura de la Solución Técnica
 
 La solución fue construida sobre una arquitectura modular desacoplada en **Python 3.10+**, ejecutada de forma 100% nativa en el entorno local del usuario:
 
@@ -79,7 +79,7 @@ flowchart TD
 
 ---
 
-## ⚙️ 3. Algoritmo de Segmentación y Padding Dinámico
+## 3. Algoritmo de Segmentación y Padding Dinámico
 
 Uno de los principales desafíos en el corte automático de voz es evitar cortes abruptos (*clipping* vocal) al inicio o final de las palabras:
 
@@ -97,7 +97,7 @@ Uno de los principales desafíos en el corte automático de voz es evitar cortes
 
 ---
 
-## 🔒 4. Rendimiento, Privacidad y Costos
+## 4. Rendimiento, Privacidad y Costos
 
 | Parámetro / Métrica | Plugins Cloud Tradicionales | DaVinci Auto-Cut Plugin (`spukerrs`) |
 | :--- | :--- | :--- |
@@ -111,7 +111,7 @@ Uno de los principales desafíos en el corte automático de voz es evitar cortes
 
 ---
 
-## 🎛️ 5. Modos de Operación Disponibles
+## 5. Modos de Operación Disponibles
 
 El usuario dispone de dos flujos de trabajo configurables desde la interfaz de consola o interfaz gráfica ligera en Qt:
 
@@ -122,7 +122,7 @@ El usuario dispone de dos flujos de trabajo configurables desde la interfaz de c
 
 ---
 
-## 💻 6. Especificación de Integración con DaVinci Resolve Scripting
+## 6. Especificación de Integración con DaVinci Resolve Scripting
 
 Ejemplo de interacción tipada con el API de DaVinci:
 
@@ -152,7 +152,7 @@ def apply_timeline_edits(timeline, cut_intervals_frames):
 
 ---
 
-## 🔗 Referencias Cruzadas
+## Referencias Cruzadas
 
 * Volver al índice general: [[00 - MOC Portfolio]]
 * Sistema visual que documenta este proyecto en la web: [[Arquitectura/Sistema de Diseño]]

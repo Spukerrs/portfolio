@@ -14,7 +14,7 @@ tags:
   - "#tailwind-v4"
 ---
 
-# 🎨 Sistema de Diseño: Dark Editorial Engineering
+# Sistema de Diseño: Dark Editorial Engineering
 
 El sistema visual del portfolio de Shair Fernando Cuello López se basa en el paradigma **Dark Editorial Engineering**. Este enfoque sintetiza la sobriedad tipográfica del diseño editorial suizo con la precisión funcional de las interfaces de ingeniería contemporáneas (como Linear, Raycast o Vercel), erradicando deliberadamente el arquetipo visual cliché y descuidado atribuido a la inteligencia artificial generativa (*AI Slop*).
 
@@ -24,7 +24,7 @@ El sistema visual del portfolio de Shair Fernando Cuello López se basa en el pa
 
 ---
 
-## 🚫 1. Principio Rector: Anti-Slop Visual
+## 1. Principio Rector: Anti-Slop Visual
 
 El ecosistema digital actual sufre de una proliferación de interfaces sintéticas clónicas: fondos oscuros genéricos inundados de gradientes morados (`#8B5CF6`) y cianes saturados (`#06B6D4`), tarjetas con bordes fluorescentes sin significado funcional y animaciones excesivas que degradan la experiencia de usuario.
 
@@ -35,7 +35,7 @@ El ecosistema digital actual sufre de una proliferación de interfaces sintétic
 
 ---
 
-## 🎨 2. Tokens Semánticos de Color
+## 2. Tokens Semánticos de Color
 
 El sistema de tokens está implementado mediante variables CSS nativas consumidas por Tailwind CSS v4, garantizando una fuente única de verdad para el renderizado.
 
@@ -73,7 +73,7 @@ classDiagram
 
 ---
 
-## 🔤 3. Sistema Tipográfico Dual
+## 3. Sistema Tipográfico Dual
 
 El emparejamiento tipográfico combina una tipografía sans-serif humanista y geométrica para prosa y lectura, con una tipografía monoespaciada de alta legibilidad para el universo técnico:
 
@@ -94,7 +94,7 @@ El emparejamiento tipográfico combina una tipografía sans-serif humanista y ge
 
 ---
 
-## ♿ 4. Accesibilidad y Estándares WCAG AAA
+## 4. Accesibilidad y Estándares WCAG AAA
 
 La accesibilidad no es un añadido superficial, sino una restricción de ingeniería integrada en la concepción del código:
 
@@ -114,7 +114,7 @@ La accesibilidad no es un añadido superficial, sino una restricción de ingenie
 
 ---
 
-## ⚡ 5. Rendimiento y Física de Animación (60 FPS)
+## 5. Rendimiento y Física de Animación (60 FPS)
 
 Siguiendo las directrices de animación física y rendimiento:
 
@@ -127,7 +127,7 @@ Siguiendo las directrices de animación física y rendimiento:
 
 ---
 
-## 🧱 6. Componentes del Sistema
+## 6. Componentes del Sistema
 
 ### A. Tarjeta Bento Editorial (`BentoCard`)
 * **Contenedor:** `bg-[#11131A]`, borde `1px solid rgba(255,255,255,0.08)`, radio `rounded-2xl`, relleno interno uniforme `p-6` a `p-8`.
@@ -142,7 +142,7 @@ Siguiendo las directrices de animación física y rendimiento:
 
 ---
 
-## 🔗 Referencias Cruzadas
+## Referencias Cruzadas
 
 * Volver al índice: [[00 - MOC Portfolio]]
 * Ver el proyecto estrella construido bajo este sistema: [[Proyectos/DaVinci Auto-Cut Plugin]]

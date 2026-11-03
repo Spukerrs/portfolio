@@ -16,7 +16,7 @@ tags:
   - "#san-agustin"
 ---
 
-# 🎓 Bitácora Académica: Orquestación de Agentes de Inteligencia Artificial en el Desarrollo de Software de Producción
+# Bitácora Académica: Orquestación de Agentes de Inteligencia Artificial en el Desarrollo de Software de Producción
 
 * **Estudiante:** Shair Fernando Cuello López  
 * **Institución Educativa:** Instituto Privado Mixto San Agustín  
@@ -29,7 +29,7 @@ tags:
 
 ---
 
-## 📋 1. Resumen Ejecutivo (Abstract)
+## 1. Resumen Ejecutivo (Abstract)
 
 El presente informe documenta la aplicación práctica del paradigma de **orquestación multiagente** asistido por modelos de lenguaje de gran escala (LLMs) para el diseño, arquitectura, programación y documentación de una solución de software web de nivel de producción. Frente al modelo tradicional de programación en solitario y al uso ingenuo de asistentes de chat monolíticos, esta experiencia adopta una jerarquía formal de agentes autónomos especializados: un **Agente Orquestador Principal** encargado de la descomposición funcional, el control de interfaces y el aseguramiento de calidad, coordinando en paralelo a **Subagentes de Dominio Específico** dedicados a la ingeniería de componentes visuales y a la documentación arquitectónica en Obsidian.
 
@@ -37,7 +37,7 @@ El resultado obtenido demuestra una aceleración superior al 400% en el ciclo de
 
 ---
 
-## 🔬 2. Fundamentación Teórica y Planteamiento del Problema
+## 2. Fundamentación Teórica y Planteamiento del Problema
 
 ### El Desafío del Desarrollo de Software Moderno
 El desarrollo web contemporáneo exige competencias multidisciplinarias simultáneas:
@@ -53,7 +53,7 @@ La inteligencia artificial aplicada al software no sustituye al criterio de inge
 
 ---
 
-## 🏛️ 3. Arquitectura del Sistema Multiagente Implementado
+## 3. Arquitectura del Sistema Multiagente Implementado
 
 Se implementó un esquema de colaboración jerárquica con aislamiento de contexto para evitar la degradación por saturación de ventana (*context window drift*):
 
@@ -85,7 +85,7 @@ graph TD
 
 ---
 
-## ⏱️ 4. Bitácora Cronológica de la Sesión de Ingeniería
+## 4. Bitácora Cronológica de la Sesión de Ingeniería
 
 | Marca Temporal | Fase del Proceso | Acción Realizada | Decisión Técnica Justificada |
 | :--- | :--- | :--- | :--- |
@@ -98,7 +98,7 @@ graph TD
 
 ---
 
-## 💬 5. Registro de Prompts de Ingeniería y Directivas de Control
+## 5. Registro de Prompts de Ingeniería y Directivas de Control
 
 A continuación se registran fragmentos esenciales de las directivas suministradas a los agentes para garantizar resultados técnicos deterministicos:
 
@@ -136,7 +136,7 @@ export interface ProjectItem {
 
 ---
 
-## 🧪 6. Validación, Pruebas y Control de Calidad
+## 6. Validación, Pruebas y Control de Calidad
 
 Para validar que el software no solo "parezca" correcto sino que sea robusto en producción, se ejecutaron las siguientes pruebas:
 
@@ -153,7 +153,7 @@ Para validar que el software no solo "parezca" correcto sino que sea robusto en 
 
 ---
 
-## 💡 7. Conclusiones y Aprendizajes Pedagógicos
+## 7. Conclusiones y Aprendizajes Pedagógicos
 
 La realización de este proyecto en el marco de la especialidad de Informática del **Instituto Privado Mixto San Agustín** permite extraer conclusiones fundamentales sobre el futuro de la disciplina:
 
@@ -166,7 +166,7 @@ La realización de este proyecto en el marco de la especialidad de Informática 
 
 ---
 
-## 📚 8. Bibliografía y Recursos de Consulta
+## 8. Bibliografía y Recursos de Consulta
 
 1. **Next.js Documentation (App Router Architecture):** Vercel Inc., 2026.
 2. **Web Content Accessibility Guidelines (WCAG) 2.2:** W3C Recommendation.

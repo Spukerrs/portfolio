@@ -11,11 +11,11 @@
 
 ---
 
-## 🏛️ Filosofía de Arquitectura (Desacople Total de Datos)
+## Filosofía de Arquitectura (Desacople Total de Datos)
 
 El código visual de este portfolio no contiene textos ni proyectos quemados (hardcoded). Toda la información proviene de un único motor tipado en TypeScript:
 
-👉 **[`src/data/portfolio.ts`](src/data/portfolio.ts)**
+**[`src/data/portfolio.ts`](src/data/portfolio.ts)**
 
 ### ¿Cómo agregar un proyecto nuevo en 1 minuto?
 1. Abre `src/data/portfolio.ts`.
@@ -44,7 +44,7 @@ El código visual de este portfolio no contiene textos ni proyectos quemados (ha
 
 ---
 
-## 🎨 Dirección de Arte: Dark Editorial Engineering
+## Dirección de Arte: Dark Editorial Engineering
 
 Diseño riguroso basado en principios *Anti-Slop Visual* (sin degradados neón cliché de IA):
 * **Fondo Base (`#090A0F`):** Negro obsidiana profundo.
@@ -57,7 +57,7 @@ Diseño riguroso basado en principios *Anti-Slop Visual* (sin degradados neón c
 
 ---
 
-## 📂 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```text
 Portfolio/
@@ -91,7 +91,7 @@ Portfolio/
 
 ---
 
-## 🚀 Comandos de Desarrollo
+## Comandos de Desarrollo
 
 ```bash
 # Instalar dependencias
@@ -109,7 +109,7 @@ npm run lint
 
 ---
 
-## 🌐 Despliegue en Vercel
+## Despliegue en Vercel
 
 El proyecto está optimizado para despliegue en Vercel con $0 costo de mantenimiento:
 1. Sube tu código a GitHub:

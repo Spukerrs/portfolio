@@ -383,7 +383,7 @@ export function BentoProjects() {
                     </p>
                     {project.metrics && (
                       <div className="inline-block px-3 py-1.5 rounded-lg bg-background/80 border border-border text-foreground font-mono text-[11px]">
-                        ⚡ {project.metrics}
+                        {project.metrics}
                       </div>
                     )}
                   </div>

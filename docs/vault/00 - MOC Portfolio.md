@@ -17,7 +17,7 @@ tags:
   - "#obsidian"
 ---
 
-# 🗺️ 00 - Map of Content (MOC): Ecosistema Portfolio spukerrs
+# 00 - Map of Content (MOC): Ecosistema Portfolio spukerrs
 
 Bienvenido a la bóveda de documentación técnica y arquitectura del portfolio profesional de **Shair Fernando Cuello López** (`spukerrs`). Este repositorio de notas estructuradas en Obsidian documenta las decisiones de ingeniería, fundamentos de diseño visual, fichas de producto y registros académicos de desarrollo asistido por inteligencia artificial.
 
@@ -25,7 +25,7 @@ Bienvenido a la bóveda de documentación técnica y arquitectura del portfolio 
 
 ---
 
-## 📌 Índice General del Ecosistema
+## Índice General del Ecosistema
 
 ```mermaid
 graph TD
@@ -65,7 +65,7 @@ graph TD
 
 ---
 
-## 🏛️ 1. Arquitectura y Dirección de Arte
+## 1. Arquitectura y Dirección de Arte
 
 Fundamentos estructurales y visuales que rigen la interfaz del portfolio bajo la filosofía de ingeniería sobria **Dark Editorial**:
 
@@ -81,7 +81,7 @@ Fundamentos estructurales y visuales que rigen la interfaz del portfolio bajo la
 
 ---
 
-## ⚡ 2. Proyectos Destacados y Soluciones de Ingeniería
+## 2. Proyectos Destacados y Soluciones de Ingeniería
 
 Fichas técnicas en profundidad de las herramientas desarrolladas, resolviendo problemas de fricción operativa mediante automatización:
 
@@ -97,7 +97,7 @@ Fichas técnicas en profundidad de las herramientas desarrolladas, resolviendo p
 
 ---
 
-## 📓 3. Bitácoras de Desarrollo y Validación Académica
+## 3. Bitácoras de Desarrollo y Validación Académica
 
 Registros formales de experimentación, gestión y orquestación multiagente en el marco académico y profesional:
 
@@ -108,7 +108,7 @@ Registros formales de experimentación, gestión y orquestación multiagente en 
 
 ---
 
-## 🤝 4. Experiencias de Colaboración y Trabajo en Equipo
+## 4. Experiencias de Colaboración y Trabajo en Equipo
 
 Bitácora detallada de participaciones en certámenes de innovación y proyectos reales con terceros:
 
@@ -122,7 +122,7 @@ Bitácora detallada de participaciones en certámenes de innovación y proyectos
 
 ---
 
-## 🛠️ Matriz de Componentes del Sistema
+## Matriz de Componentes del Sistema
 
 | Módulo / Documento | Dominio Técnico | Estado | Enlace Rápido |
 | :--- | :--- | :--- | :--- |
@@ -134,7 +134,7 @@ Bitácora detallada de participaciones en certámenes de innovación y proyectos
 
 ---
 
-## 🔗 Enlaces Externos y Recursos del Entorno
+## Enlaces Externos y Recursos del Entorno
 
 * Repositorio del Portfolio: `https://github.com/spukerrs/portfolio`
 * Código de Datos Desacoplado: `src/data/portfolio.ts`

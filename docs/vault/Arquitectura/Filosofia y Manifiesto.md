@@ -7,13 +7,13 @@
 
 ---
 
-## 🧭 Declaración de Principios (Honestidad Radical)
+## Declaración de Principios (Honestidad Radical)
 
 > *"No provengo del desarrollo de código tradicional ni escribo sintaxis de memoria desde cero. Mi diferencial y verdadera habilidad radica en la arquitectura de soluciones, una atención casi obsesiva al detalle y una capacidad implacable de testing para cazar errores antes de que lleguen a producción. Me pueden decir vibecoder o lo que quieran; a mí lo que me importa es la seguridad, que el cliente quede satisfecho y ayudar a construir soluciones reales que funcionen a la perfección."*
 
 ---
 
-## ⚡ El Rol del "Constructor con IA": Del Código a Ciegas al Testing Obsesivo
+## El Rol del "Constructor con IA": Del Código a Ciegas al Testing Obsesivo
 
 En la era donde cualquiera puede pedirle a un modelo de lenguaje que escriba cientos de líneas de código, la programación sintáctica deja de ser el cuello de botella. El verdadero desafío —y donde se separan los proyectos que fracasan de los que triunfan— es:
 
