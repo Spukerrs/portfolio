@@ -45,6 +45,7 @@ export interface Project {
   githubUrl?: string;
   demoUrl?: string;
   repoStatus?: "public" | "private" | "coming_soon";
+  coAuthor?: TeamMember;
   media?: {
     type: "image" | "video";
     src: string;
@@ -52,7 +53,7 @@ export interface Project {
     alt?: string;
   };
   abstractVisual: {
-    type: "waveform" | "pipeline" | "vision-guard" | "sqlite-grid";
+    type: "waveform" | "pipeline" | "vision-guard" | "sqlite-grid" | "habit-breathe" | "accessibility" | "web-remaster";
     accentColor: string;
   };
 }
@@ -116,15 +117,15 @@ export const portfolioData: PortfolioData = {
       label: "Disponible para nuevos proyectos y colaboraciones",
     },
     pitch:
-      "Transformo problemas reales en software funcional, herramientas de automatización y flujos audiovisuales combinando arquitectura de producto e inteligencia artificial.",
+      "No provengo del desarrollo tradicional de código de memoria: mi verdadero valor está en la arquitectura de soluciones, una atención casi obsesiva al detalle y una capacidad implacable de testing para encontrar errores antes de que lleguen a producción. Orquesto IA como motor técnico, pero audito cada línea para que todo funcione a la perfección.",
     philosophy: {
       intro:
-        "Busco ofrecer soluciones reales al mundo. Por más que eso conlleve utilizar inteligencia artificial, las etiquetas no definen el resultado: me pueden llamar 'vibecoder' o lo que prefieran, pero para mí lo prioritario es la satisfacción de quien confía en mí y la seguridad del software. Por eso audito, testeo y verifico cada proyecto antes de entregarlo. Mi filosofía es simple: ayudar.",
+        "Soy 100% transparente: no programo escribiendo sintaxis a mano desde cero. Mi habilidad radica en la visión de producto, la detección temprana de fallos y un testing meticuloso, a veces obsesivo. En una era donde cualquiera puede pedirle código a una IA, a mí me importa el detalle extremo: que todo funcione perfecto, seguro y sin errores. Me pueden llamar 'vibecoder' o como quieran; para mí lo prioritario es la satisfacción del cliente y mi vocación de ayudar.",
       quote:
-        "Me pueden decir vibecoder o lo que quieran; a mí lo que me importa es la satisfacción del cliente y la seguridad de lo que construyo. Por eso audito, testeo y valido los proyectos antes de entregarlos. Mi filosofía es ayudar a resolver problemas reales.",
+        "No escribo código tradicional, pero tengo una obsesión incansable por el detalle y el testing para que nada falle. Me pueden decir vibecoder o lo que quieran: a mí lo que me importa es la seguridad, que el cliente quede satisfecho y ayudar a construir soluciones reales.",
       closing:
-        "Al final del día, mi vocación no es seguir modas tecnológicas, sino aportar valor tangible con honestidad. Si tienes un problema que necesita una solución ágil, segura y bien testeada, hablemos.",
-      highlight: "Seguridad · Auditoría Humana · Vocación de Servicio",
+        "Mi vocación es ayudar. No busco aparentar que sé programar a la antigua: orquesto inteligencia artificial, audito cada flujo con rigor obsesivo y entrego software testeado a fondo que cumple su propósito.",
+      highlight: "Testing Obsesivo · Atención al Detalle · Seguridad Real",
     },
     bio: [
       "Constructor de soluciones de alto impacto asistido por IA. Mi enfoque se centra en la especificación técnica rigurosa, la orquestación de agentes especializados y la auditoría exhaustiva de código.",
@@ -158,16 +159,42 @@ export const portfolioData: PortfolioData = {
 
   projects: [
     {
-      id: "davinci-autocut",
-      title: "DaVinci Resolve Auto-Cut Plugin",
-      category: "Video & Plugins",
-      tagline: "Corte automático de silencios e ingesta asistida con IA local",
+      id: "just-breathe",
+      title: "Just Breathe — Bienestar, Hábitos & Sueño",
+      category: "Apps & Web",
+      tagline: "Trackeo unificado de hábitos, ciclos de sueño y respiración consciente",
       problem:
-        "La edición manual de tomas largas requiere horas eliminando pausas y silencios en la línea de tiempo.",
+        "La fragmentación entre apps de hábitos (como HabitNow) y apps de sueño (como Sleep as Android) obliga a usar múltiples interfaces, cuentas y suscripciones dispersas.",
       solution:
-        "Plugin desarrollado en Python que procesa el audio localmente con faster-whisper y envía instrucciones directas a la API de DaVinci Resolve para generar cortes instantáneos a costo $0.",
-      metrics: "Ahorra un 70% del tiempo de primer corte sin enviar datos a la nube",
-      tags: ["Python", "DaVinci Resolve API", "faster-whisper", "FFmpeg", "Audio Processing"],
+        "Aplicación integral para iOS y Android desarrollada en conjunto con Santiago Román que unifica el registro diario de hábitos, análisis de descanso y módulos de meditación guiada en una sola experiencia.",
+      metrics: "Arquitectura móvil integral orientada al orden y la salud mental",
+      tags: ["TypeScript", "React Native", "Habit Tracking", "Sleep Cycles", "Health Tech"],
+      status: "En desarrollo",
+      featured: true,
+      span: "md:col-span-2",
+      githubUrl: "https://github.com/Spukerrs/just-breathe",
+      repoStatus: "public",
+      coAuthor: {
+        name: "Santiago Román",
+        role: "Co-desarrollador",
+        linkedinUrl: "https://www.linkedin.com/in/santiago-rom%C3%A1n-4683ab326/",
+      },
+      abstractVisual: {
+        type: "habit-breathe",
+        accentColor: "#10B981",
+      },
+    },
+    {
+      id: "davinci-autocut",
+      title: "DaVinci Resolve Auto-Cut & Auto-Sub Plugin",
+      category: "Video & Plugins",
+      tagline: "Corte automático de silencios y generación de subtítulos con IA local",
+      problem:
+        "La edición manual de tomas largas requiere horas eliminando pausas muertas y subtitulando palabra por palabra.",
+      solution:
+        "Plugin de código abierto integrado en la API nativa de DaVinci Resolve que procesa el audio con faster-whisper local para detectar silencios, generar una nueva línea de tiempo cortada y exportar subtítulos sincronizados a costo $0.",
+      metrics: "Ahorra un 70% del tiempo de primer corte con 100% privacidad offline",
+      tags: ["Python", "DaVinci Resolve API", "faster-whisper", "FFmpeg", "AutoSub"],
       status: "En desarrollo",
       featured: true,
       span: "md:col-span-2",
@@ -179,15 +206,36 @@ export const portfolioData: PortfolioData = {
       },
     },
     {
-      id: "video-automation-backups",
-      title: "Automatización Inteligente de Video & Backups",
-      category: "Automatización & IA",
-      tagline: "Pipeline desatendido de ingesta, compresión y redundancia",
+      id: "focusguard-app",
+      title: "FocusGuard — Bloqueo Anti-Doomscrolling con Visión",
+      category: "Apps & Web",
+      tagline: "Uso de redes condicionado a ejercicio físico verificado por cámara",
       problem:
-        "La gestión de múltiples cámaras y tarjetas SD genera cuellos de botella y riesgos de pérdida de archivos brutos.",
+        "Los bloqueadores de pantalla convencionales son fáciles de ignorar o desactivar durante el consumo compulsivo de redes sociales como TikTok o Reels.",
       solution:
-        "Pipeline en Python y Bash para indexación automática por metadatos/timestamps, compresión con aceleración por hardware y sincronización redundante hacia almacenamiento local y nube.",
-      metrics: "Organización de 50GB+ de metraje en minutos con verificación SHA-256",
+        "Al sobrepasar 15 minutos de pantalla, la app bloquea el dispositivo y exige cumplir flexiones o sentadillas físicas verificadas en tiempo real mediante la cámara frontal y visión computacional.",
+      metrics: "Trackeo de posturas y repeticiones a 30 FPS en el dispositivo",
+      tags: ["Computer Vision", "MediaPipe", "Android", "Digital Wellbeing"],
+      status: "Prototipo",
+      featured: false,
+      span: "md:col-span-1",
+      githubUrl: "https://github.com/spukerrs/focusguard-vision",
+      repoStatus: "coming_soon",
+      abstractVisual: {
+        type: "vision-guard",
+        accentColor: "#F59E0B",
+      },
+    },
+    {
+      id: "video-automation-backups",
+      title: "Automatización de Ingesta & Respaldo de Video",
+      category: "Automatización & IA",
+      tagline: "Clasificación automática por antigüedad (>30 días) y redundancia",
+      problem:
+        "La acumulación de gigabytes de grabaciones satura los discos y genera riesgo constante de pérdida de material bruto al formatear o limpiar la PC.",
+      solution:
+        "Script desatendido que detecta clips con más de un mes de antigüedad, los traslada a directorios de archivo y gestiona copias de seguridad redundantes en la nube para resguardo permanente.",
+      metrics: "Clasificación desatendida y tolerancia cero a pérdida de metraje",
       tags: ["Python", "Bash", "FFmpeg", "Cloud Storage", "Automation"],
       status: "En producción",
       featured: false,
@@ -200,24 +248,45 @@ export const portfolioData: PortfolioData = {
       },
     },
     {
-      id: "focusguard-app",
-      title: "FocusGuard — Anti-Doomscrolling con Visión",
+      id: "san-agustin-remaster",
+      title: "Remasterización Web — Instituto San Agustín",
       category: "Apps & Web",
-      tagline: "Bloqueo físico de pantallas condicionado por visión artificial",
+      tagline: "Propuesta de modernización de la plataforma institucional del colegio",
       problem:
-        "Los bloqueadores de pantalla convencionales son fáciles de eludir y no crean hábitos físicos reales.",
+        "Plataformas institucionales con interfaces anticuadas, lenta carga y mala experiencia de usuario en teléfonos móviles para alumnos y docentes.",
       solution:
-        "Aplicación interactiva que exige cumplir metas físicas tangibles verificadas en tiempo real mediante cámara frontal y MediaPipe antes de desbloquear la pantalla.",
-      metrics: "Reconocimiento de posturas y repeticiones a 30 FPS en el dispositivo",
-      tags: ["TypeScript", "MediaPipe", "Computer Vision", "React Native", "UX/UI"],
+        "Propuesta técnica de rediseño integral con arquitectura Next.js, diseño responsivo accesible y navegación fluida para información académica y novedades del colegio.",
+      metrics: "100/100 Lighthouse performance y cumplimiento estricto WCAG AA",
+      tags: ["Next.js", "Tailwind CSS", "A11y", "Responsive Design"],
+      status: "En desarrollo",
+      featured: false,
+      span: "md:col-span-1",
+      githubUrl: "https://github.com/spukerrs/san-agustin-web-remaster",
+      repoStatus: "coming_soon",
+      abstractVisual: {
+        type: "web-remaster",
+        accentColor: "#38BDF8",
+      },
+    },
+    {
+      id: "accesibilidad-acv",
+      title: "Asistente de Comunicación Adaptada & ACV",
+      category: "Automatización & IA",
+      tagline: "Compensación sensorial asistida para personas con secuelas comunicativas",
+      problem:
+        "Personas que sufrieron un ACV o con discapacidades del habla y escucha enfrentan una brecha severa de comunicación cotidiana al no poder expresarse de forma estándar.",
+      solution:
+        "Interfaz adaptativa diseñada para compensar capacidades: si el usuario no puede hablar o escuchar, utiliza iconografía táctil contextual, texto asistido y síntesis de voz simplificada para comunicarse con su entorno.",
+      metrics: "Diseño inclusivo centrado en accesibilidad cognitiva y motriz",
+      tags: ["Accesibilidad", "Inclusión", "UX Adaptativa", "Health Tech"],
       status: "Prototipo",
       featured: false,
       span: "md:col-span-1",
-      githubUrl: "https://github.com/spukerrs/focusguard-vision",
+      githubUrl: "https://github.com/spukerrs/accessibility-assist-acv",
       repoStatus: "coming_soon",
       abstractVisual: {
-        type: "vision-guard",
-        accentColor: "#F59E0B",
+        type: "accessibility",
+        accentColor: "#EC4899",
       },
     },
     {

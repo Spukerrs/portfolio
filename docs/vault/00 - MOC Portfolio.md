@@ -35,8 +35,9 @@ graph TD
         DIS["[[Arquitectura/Sistema de Diseño|Sistema de Diseño (Dark Editorial)]]"]
     end
     
-    subgraph Proyectos ["Ingeniería de Software"]
+    subgraph Proyectos ["Ingeniería de Software & Apps"]
         DVC["[[Proyectos/DaVinci Auto-Cut Plugin|DaVinci Auto-Cut Plugin]]"]
+        JBR["[[Proyectos/Just Breathe - Habitos y Sueno|Just Breathe App]]"]
     end
     
     subgraph Academico ["Bitácoras & Metodología"]
@@ -50,6 +51,7 @@ graph TD
     
     MOC --> DIS
     MOC --> DVC
+    MOC --> JBR
     MOC --> BIT
     MOC --> SAV
     MOC --> FCC
@@ -82,6 +84,11 @@ Fundamentos estructurales y visuales que rigen la interfaz del portfolio bajo la
 ## ⚡ 2. Proyectos Destacados y Soluciones de Ingeniería
 
 Fichas técnicas en profundidad de las herramientas desarrolladas, resolviendo problemas de fricción operativa mediante automatización:
+
+* **[[Proyectos/Just Breathe - Habitos y Sueno|Proyecto: Just Breathe — Bienestar, Hábitos & Sueño]]**
+  * *Co-Desarrollador:* Santiago Román ([github.com/Spukerrs/just-breathe](https://github.com/Spukerrs/just-breathe)).
+  * *Visión:* Unificación de seguimiento de hábitos (HabitNow), monitoreo de ciclos de sueño (Sleep as Android) y respiración consciente en iOS y Android.
+  * *Mi Aporte:* Arquitectura de producto, especificación UX/UI, testing riguroso de casos borde y control de calidad.
 
 * **[[Proyectos/DaVinci Auto-Cut Plugin|Proyecto: DaVinci Auto-Cut Plugin]]**
   * *El Problema:* Pérdida de horas en edición manual eliminando silencios y tomas muertas en timelines de video multicámara.

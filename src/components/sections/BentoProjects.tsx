@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowUpRight, CheckCircle2, Clock, Wrench } from "lucide-react";
-import { GithubIcon } from "@/components/ui/BrandIcons";
+import { GithubIcon, LinkedinIcon } from "@/components/ui/BrandIcons";
 import { portfolioData, type Project, type ProjectCategory } from "@/data/portfolio";
 
 function ProjectVisual({ project }: { project: Project }) {
@@ -102,6 +102,89 @@ function ProjectVisual({ project }: { project: Project }) {
         <div className="flex items-center justify-between text-xs">
           <span className="text-muted">Desbloqueo físico</span>
           <span className="text-amber-400 font-medium">Condición Cumplida</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === "habit-breathe") {
+    return (
+      <div className="relative w-full h-36 rounded-xl bg-background/90 border border-border/80 p-3 overflow-hidden flex flex-col justify-between font-mono text-[11px]">
+        <div className="flex items-center justify-between text-muted-dark">
+          <span className="text-foreground font-semibold">Just Breathe Core</span>
+          <span className="text-accent">Sleep + Habit Sync</span>
+        </div>
+        <div className="flex items-center justify-between gap-3 my-auto">
+          <div className="flex-1 p-2 rounded bg-surface border border-border/60">
+            <span className="text-[10px] text-muted-dark block">HÁBITOS DIARIOS</span>
+            <div className="flex gap-1 mt-1.5">
+              {[1, 2, 3, 4, 5, 6, 7].map((d) => (
+                <div key={d} className="w-2.5 h-2.5 rounded-sm bg-accent/80" />
+              ))}
+            </div>
+          </div>
+          <div className="flex-1 p-2 rounded bg-accent/10 border border-accent/30 text-center">
+            <span className="text-[10px] text-accent block">SUEÑO PROFUNDO</span>
+            <span className="text-xs font-bold text-foreground">7h 45m · 92%</span>
+          </div>
+        </div>
+        <div className="flex items-center justify-between text-xs text-muted">
+          <span>Bienestar Integral</span>
+          <span className="text-accent font-medium">Ciclo Activo</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === "web-remaster") {
+    return (
+      <div className="relative w-full h-36 rounded-xl bg-background/90 border border-border/80 p-3 overflow-hidden flex flex-col justify-between font-mono text-[11px]">
+        <div className="flex items-center justify-between text-muted-dark">
+          <span className="text-foreground font-semibold">San Agustín Web Remaster</span>
+          <span className="text-accent-sky">Next.js App Router</span>
+        </div>
+        <div className="grid grid-cols-3 gap-2 my-auto">
+          <div className="p-2 rounded bg-surface border border-border/60 text-center">
+            <span className="text-[10px] text-muted-dark block">PERF</span>
+            <span className="text-xs font-bold text-accent">100/100</span>
+          </div>
+          <div className="p-2 rounded bg-surface border border-border/60 text-center">
+            <span className="text-[10px] text-muted-dark block">A11Y</span>
+            <span className="text-xs font-bold text-accent-sky">WCAG AA</span>
+          </div>
+          <div className="p-2 rounded bg-surface border border-border/60 text-center">
+            <span className="text-[10px] text-muted-dark block">MOBILE</span>
+            <span className="text-xs font-bold text-foreground">Fluid</span>
+          </div>
+        </div>
+        <div className="flex items-center justify-between text-xs text-muted">
+          <span>Portal Institucional</span>
+          <span className="text-accent-sky font-medium">Rediseño</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === "accessibility") {
+    return (
+      <div className="relative w-full h-36 rounded-xl bg-background/90 border border-border/80 p-3 overflow-hidden flex flex-col justify-between font-mono text-[11px]">
+        <div className="flex items-center justify-between text-muted-dark">
+          <span className="text-foreground font-semibold">Asistente Accesibilidad ACV</span>
+          <span className="text-pink-400">Compensación Sensorial</span>
+        </div>
+        <div className="grid grid-cols-2 gap-2 my-auto">
+          <div className="p-2 rounded bg-surface border border-border/60">
+            <span className="text-[10px] text-muted-dark block">MODO HABLA</span>
+            <span className="text-xs text-foreground font-semibold">Texto a Síntesis</span>
+          </div>
+          <div className="p-2 rounded bg-surface border border-border/60">
+            <span className="text-[10px] text-muted-dark block">MODO ESCUCHA</span>
+            <span className="text-xs text-foreground font-semibold">Transcripción Visual</span>
+          </div>
+        </div>
+        <div className="flex items-center justify-between text-xs text-muted">
+          <span>Inclusión Cognitiva</span>
+          <span className="text-pink-400 font-medium">Accesible</span>
         </div>
       </div>
     );
@@ -269,7 +352,24 @@ export function BentoProjects() {
                   <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground group-hover:text-accent transition-colors mb-2">
                     {project.title}
                   </h3>
-                  <p className="text-sm font-medium text-muted mb-4">{project.tagline}</p>
+                  <p className="text-sm font-medium text-muted mb-3">{project.tagline}</p>
+
+                  {/* Co-Author Badge (e.g. Santiago Román) */}
+                  {project.coAuthor && (
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.04] border border-border/60 text-xs font-mono text-muted mb-4">
+                      <span>Co-desarrollado con</span>
+                      <a
+                        href={project.coAuthor.linkedinUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-accent-sky hover:underline"
+                      >
+                        <LinkedinIcon className="w-3 h-3 text-accent-sky" aria-hidden="true" />
+                        <span className="font-semibold text-foreground">{project.coAuthor.name}</span>
+                        <ArrowUpRight className="w-2.5 h-2.5 opacity-60" aria-hidden="true" />
+                      </a>
+                    </div>
+                  )}
 
                   {/* Editorial Problem vs Solution breakdown */}
                   <div className="space-y-2.5 text-xs text-muted leading-relaxed mb-6">
