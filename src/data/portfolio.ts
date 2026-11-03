@@ -16,6 +16,12 @@ export interface Profile {
   };
   pitch: string;
   bio: string[];
+  philosophy: {
+    intro: string;
+    closing: string;
+    quote: string;
+    highlight: string;
+  };
   email: string;
   cvUrl: string;
   avatarUrl?: string;
@@ -111,6 +117,15 @@ export const portfolioData: PortfolioData = {
     },
     pitch:
       "Transformo problemas reales en software funcional, herramientas de automatización y flujos audiovisuales combinando arquitectura de producto e inteligencia artificial.",
+    philosophy: {
+      intro:
+        "Busco ofrecer soluciones reales al mundo. Por más que eso conlleve utilizar inteligencia artificial, las etiquetas no definen el resultado: me pueden llamar 'vibecoder' o lo que prefieran, pero para mí lo prioritario es la satisfacción de quien confía en mí y la seguridad del software. Por eso audito, testeo y verifico cada proyecto antes de entregarlo. Mi filosofía es simple: ayudar.",
+      quote:
+        "Me pueden decir vibecoder o lo que quieran; a mí lo que me importa es la satisfacción del cliente y la seguridad de lo que construyo. Por eso audito, testeo y valido los proyectos antes de entregarlos. Mi filosofía es ayudar a resolver problemas reales.",
+      closing:
+        "Al final del día, mi vocación no es seguir modas tecnológicas, sino aportar valor tangible con honestidad. Si tienes un problema que necesita una solución ágil, segura y bien testeada, hablemos.",
+      highlight: "Seguridad · Auditoría Humana · Vocación de Servicio",
+    },
     bio: [
       "Constructor de soluciones de alto impacto asistido por IA. Mi enfoque se centra en la especificación técnica rigurosa, la orquestación de agentes especializados y la auditoría exhaustiva de código.",
       "Conecto el desarrollo de software moderno (Next.js, Python, TypeScript) con la ingeniería audiovisual avanzada (DaVinci Resolve API, visión computacional) para automatizar lo repetitivo y potenciar la creatividad.",

@@ -25,3 +25,4 @@ FC Construcciones es un emprendimiento familiar enfocado en obras, remodelacione
 * **Realismo operativo:** Comprender la diferencia entre una producción cinematográfica de alto presupuesto y el contenido pragmático que necesita una pyme o emprendimiento familiar para vender día a día.
 * **Atención al detalle bajo restricciones:** Lograr piezas atractivas a partir de grabaciones cotidianas con celular en condiciones de obra (polvo, ruido ambiental, iluminación variable).
 * **Base para la automatización:** Esta experiencia manual editando clips en DaVinci Resolve fue uno de los detonantes para conceptualizar el *DaVinci Auto-Cut Plugin*, entendiendo de primera mano la fatiga repetitiva de recortar silencios en tomas largas.
+

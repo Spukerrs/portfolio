@@ -73,6 +73,10 @@ Fundamentos estructurales y visuales que rigen la interfaz del portfolio bajo la
   * *Tipografía Dual:* `Plus Jakarta Sans` para lectura editorial de alta densidad + `JetBrains Mono` para telemetría técnica.
   * *Métricas de Calidad:* Cumplimiento estricto WCAG AAA, soporte completo `prefers-reduced-motion` y cero Cumulative Layout Shift (CLS < 0.1).
 
+* **[[Arquitectura/Filosofia y Manifiesto|Manifiesto Profesional: Seguridad, Auditoría y Vocación de Ayudar]]**
+  * *Postura frente al "Vibecoding":* La IA como multiplicador, pero siempre con auditoría humana, pruebas exhaustivas y seguridad antes de entregar.
+  * *Prioridad máxima:* La satisfacción del cliente y la resolución empática de problemas reales.
+
 ---
 
 ## ⚡ 2. Proyectos Destacados y Soluciones de Ingeniería

@@ -38,3 +38,4 @@ La implementación directa de la web y la formulación integral de la idea princ
 * **Integración con expertos de otras áreas:** Coordinar esfuerzos con plazos ajustados y prioridades cambiantes.
 * **Impacto socio-productivo:** Diseñar tecnología no por la tecnología en sí, sino para solucionar una necesidad ambiental y comunitaria crítica.
 * **Valoración destacada:** El prototipo obtuvo un reconocimiento sobresaliente por su viabilidad técnica y su aplicabilidad directa.
+

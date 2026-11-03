@@ -44,9 +44,12 @@ export function Contact() {
           ¿Tienes un proyecto o desafío técnico en mente?
         </h2>
 
-        {/* Subtitle */}
-        <p className="text-sm sm:text-base text-muted max-w-lg mb-10 leading-relaxed">
-          Estoy disponible para consultoría, desarrollo de plugins/automatizaciones para DaVinci Resolve, pipelines en
+        {/* Concluding Philosophy & Service Statement */}
+        <p className="text-sm sm:text-base text-muted max-w-xl mb-4 leading-relaxed">
+          {profile.philosophy.closing}
+        </p>
+        <p className="text-xs sm:text-sm font-mono text-muted-dark max-w-lg mb-10 leading-relaxed">
+          Disponible para consultoría, desarrollo de plugins/automatizaciones para DaVinci Resolve, pipelines en
           Python o creación de productos digitales asistidos por IA.
         </p>
 

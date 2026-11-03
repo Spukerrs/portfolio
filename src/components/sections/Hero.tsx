@@ -116,10 +116,24 @@ export function Hero() {
         {/* Pitch Statement */}
         <motion.p
           variants={itemVariants}
-          className="text-base sm:text-lg md:text-xl text-muted leading-relaxed max-w-2xl mb-10"
+          className="text-base sm:text-lg md:text-xl text-muted leading-relaxed max-w-2xl mb-6"
         >
           {profile.pitch}
         </motion.p>
+
+        {/* Introductory Personal Philosophy Callout */}
+        <motion.div
+          variants={itemVariants}
+          className="mb-10 max-w-2xl p-4 sm:p-5 rounded-2xl bg-surface/80 border border-border/80 text-left relative overflow-hidden group hover:border-accent/40 transition-colors shadow-sm"
+        >
+          <div className="flex items-start gap-3.5">
+            <span className="w-1.5 h-16 rounded-full bg-accent shrink-0 mt-0.5" />
+            <p className="text-xs sm:text-sm text-muted leading-relaxed">
+              <strong className="text-foreground font-semibold">Mi filosofía: </strong>
+              {profile.philosophy.intro}
+            </p>
+          </div>
+        </motion.div>
 
         {/* Interactive Actions CTA */}
         <motion.div
