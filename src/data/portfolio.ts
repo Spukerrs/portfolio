@@ -51,6 +51,27 @@ export interface Project {
   };
 }
 
+export interface TeamMember {
+  name: string;
+  role: string;
+  linkedinUrl?: string;
+}
+
+export interface Collaboration {
+  id: string;
+  title: string;
+  entity: string;
+  role: string;
+  period: string;
+  summary: string;
+  myContribution: string;
+  team?: TeamMember[];
+  tags: string[];
+  projectUrl?: string;
+  projectUrlLabel?: string;
+  blogSlug?: string;
+}
+
 export interface WorkflowStep {
   step: string;
   title: string;
@@ -71,6 +92,7 @@ export interface SkillCategory {
 export interface PortfolioData {
   profile: Profile;
   projects: Project[];
+  collaborations: Collaboration[];
   workflow: WorkflowStep[];
   skills: SkillCategory[];
   categories: ("Todos" | ProjectCategory)[];
@@ -203,6 +225,56 @@ export const portfolioData: PortfolioData = {
         type: "sqlite-grid",
         accentColor: "#8B5CF6",
       },
+    },
+  ],
+
+  collaborations: [
+    {
+      id: "saver-ucc-aguas-cordobesas",
+      title: "Saver — Plataforma contra el Derroche de Agua Potable",
+      entity: "Universidad Católica de Córdoba (TechCamp UCC 2026) · Aguas Cordobesas",
+      role: "Soporte Técnico & Análisis de Viabilidad",
+      period: "Agosto 2026 - Octubre 2026",
+      summary:
+        "Solución tecnológica orientada a prevenir y mitigar el derroche de agua en la red pública de Aguas Cordobesas, desarrollada durante el certamen universitario TechCamp UCC.",
+      myContribution:
+        "Participación en el análisis técnico, soporte intelectual en arquitectura y viabilidad de prototipado para el equipo interdisciplinario.",
+      projectUrl: "https://cromop1.github.io/saver_UCC/",
+      projectUrlLabel: "Ver prototipo Saver",
+      team: [
+        {
+          name: "Santiago Garay Allasia",
+          role: "Co-creador & Desarrollo",
+          linkedinUrl: "https://www.linkedin.com/in/santiago-garay-allasia-654866227/",
+        },
+        {
+          name: "Faustino Pedone López",
+          role: "Co-creador & Desarrollo",
+          linkedinUrl: "https://www.linkedin.com/in/pedone-l%C3%B3pez-faustino-3211a2412/",
+        },
+        {
+          name: "Bruno Ángel Segura Marsal",
+          role: "Co-creador & Desarrollo",
+          linkedinUrl: "https://www.linkedin.com/in/bruno-angel-segura-marsal/",
+        },
+      ],
+      tags: ["Trabajo en Equipo", "Impacto Comunitario", "IoT Conceptual", "TechCamp 2026"],
+      blogSlug: "saver-techcamp-ucc",
+    },
+    {
+      id: "fc-construcciones-audiovisual",
+      title: "FC Construcciones — Contenido & Presencia Digital",
+      entity: "FC Construcciones (Emprendimiento Familiar de Construcción)",
+      role: "Editor Audiovisual & Media (Medio Tiempo)",
+      period: "2024 - Presente",
+      summary:
+        "Producción de contenido audiovisual para redes comerciales en el sector de la construcción y remodelación de obras.",
+      myContribution:
+        "Edición y montaje de videos cortos (Reels / Shorts) en DaVinci Resolve, corrección básica de color, sincronización de audio y subtitulado dinámico para comunicación comercial.",
+      projectUrl: "https://www.instagram.com/fcconstruccionesokk/",
+      projectUrlLabel: "Ver @fcconstruccionesokk en Instagram",
+      tags: ["DaVinci Resolve", "Edición Dinámica", "Redes Sociales", "Media"],
+      blogSlug: "fc-construcciones-edicion",
     },
   ],
 

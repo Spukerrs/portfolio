@@ -12,6 +12,7 @@ export function Navbar() {
 
   const navLinks = [
     { name: "Proyectos", href: "#proyectos" },
+    { name: "Colaboraciones", href: "#colaboraciones" },
     { name: "Metodología", href: "#metodologia" },
     { name: "Stack", href: "#stack" },
     { name: "Contacto", href: "#contacto" },

@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Hero } from "@/components/sections/Hero";
 import { BentoProjects } from "@/components/sections/BentoProjects";
+import { Collaborations } from "@/components/sections/Collaborations";
 import { StackAndWorkflow } from "@/components/sections/StackAndWorkflow";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/layout/Footer";
@@ -18,6 +19,9 @@ export default function Home() {
 
         {/* Bento Grid with Filterable Projects */}
         <BentoProjects />
+
+        {/* Collaborations, Alliances & Real Impact */}
+        <Collaborations />
 
         {/* Methodology Manifesto & Technical Stack */}
         <StackAndWorkflow />

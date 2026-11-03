@@ -43,13 +43,22 @@ graph TD
         BIT["[[Bitacora IA/2026-11-02 - Ejecución Multiagente|Bitácora: Ejecución Multiagente]]"]
     end
     
+    subgraph Experiencia ["Colaboraciones & Experiencias"]
+        SAV["[[Experiencias/Saver - TechCamp UCC|Saver (TechCamp UCC)]]"]
+        FCC["[[Experiencias/FC Construcciones - Edicion Audiovisual|FC Construcciones]]"]
+    end
+    
     MOC --> DIS
     MOC --> DVC
     MOC --> BIT
+    MOC --> SAV
+    MOC --> FCC
     
     DVC -.->|Tokens Visuales| DIS
     BIT -.->|Decisiones de Arquitectura| DIS
     BIT -.->|Caso de Estudio Técnico| DVC
+    SAV -.->|Prueba Social & Trabajo en Equipo| MOC
+    FCC -.->|Base Práctica de Edición| DVC
 ```
 
 ---
@@ -88,6 +97,20 @@ Registros formales de experimentación, gestión y orquestación multiagente en 
 
 ---
 
+## 🤝 4. Experiencias de Colaboración y Trabajo en Equipo
+
+Bitácora detallada de participaciones en certámenes de innovación y proyectos reales con terceros:
+
+* **[[Experiencias/Saver - TechCamp UCC|Saver — TechCamp UCC 2026 (Aguas Cordobesas)]]**
+  * *Desafío:* Mitigación del derroche de agua en red pública para Aguas Cordobesas.
+  * *Equipo:* Santiago Garay Allasia, Faustino Pedone López, Bruno Ángel Segura Marsal y Shair Cuello.
+  * *Mi Aporte:* Soporte técnico, modelado de flujo y viabilidad de arquitectura en certamen universitario.
+* **[[Experiencias/FC Construcciones - Edicion Audiovisual|FC Construcciones — Producción Audiovisual & Media]]**
+  * *Sector:* Emprendimiento de construcción y obras civiles.
+  * *Mi Aporte:* Edición de video dinámico en DaVinci Resolve para Instagram Reels, subtitulado y comunicación de marca.
+
+---
+
 ## 🛠️ Matriz de Componentes del Sistema
 
 | Módulo / Documento | Dominio Técnico | Estado | Enlace Rápido |
@@ -95,6 +118,8 @@ Registros formales de experimentación, gestión y orquestación multiagente en 
 | **Sistema de Diseño** | UI/UX, Tokens Semánticos, WCAG | `En Producción` | [[Arquitectura/Sistema de Diseño]] |
 | **DaVinci Auto-Cut** | Python, DaVinci API, VAD Local | `Fase Beta / Pruebas` | [[Proyectos/DaVinci Auto-Cut Plugin]] |
 | **Bitácora Multiagente** | IA Agéntica, Metodología Escolar | `Presentado / Evaluado` | [[Bitacora IA/2026-11-02 - Ejecución Multiagente]] |
+| **Saver (TechCamp UCC)** | Trabajo en Equipo, IoT, Sustentabilidad | `Certamen Finalizado` | [[Experiencias/Saver - TechCamp UCC]] |
+| **FC Construcciones** | DaVinci Resolve, Edición Comercial | `En Curso (Medio Tiempo)` | [[Experiencias/FC Construcciones - Edicion Audiovisual]] |
 
 ---
 
