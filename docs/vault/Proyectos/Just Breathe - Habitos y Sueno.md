@@ -29,3 +29,4 @@ En el ecosistema móvil actual, los usuarios que buscan ordenar su rutina y salu
 * **Dinámica de Equipo:**
   * **Santiago Román:** Co-desarrollo e implementación de funcionalidades nucleares ([LinkedIn](https://www.linkedin.com/in/santiago-rom%C3%A1n-4683ab326/)).
   * **Shair Fernando Cuello López (`spukerrs`):** Arquitectura de producto, diseño de flujos UX/UI, auditoría de código y testing meticuloso para asegurar estabilidad en ambos sistemas operativos.
+
