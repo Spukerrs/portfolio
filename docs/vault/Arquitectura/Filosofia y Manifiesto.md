@@ -32,3 +32,4 @@ Frente a esa tendencia, mi postura profesional es clara y tajante:
 
 ## 🎯 Conclusión
 Mi vocación no es seguir modas tecnológicas vacías, sino **ayudar a las personas y a los proyectos a materializar soluciones digitales de alto impacto con rigor, seguridad y transparencia**.
+
