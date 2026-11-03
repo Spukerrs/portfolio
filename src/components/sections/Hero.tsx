@@ -80,16 +80,17 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* Optional Editorial Avatar / Portrait */}
+        {/* Editorial Portrait Card */}
         {profile.avatarUrl && (
-          <motion.div variants={itemVariants} className="mb-4">
-            <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1 bg-gradient-to-b from-white/10 to-transparent border border-border shadow-xl overflow-hidden mx-auto">
+          <motion.div variants={itemVariants} className="mb-6">
+            <div className="relative group w-24 h-28 sm:w-28 sm:h-32 rounded-2xl p-1 bg-gradient-to-b from-white/12 via-surface to-surface border border-border/80 hover:border-accent/40 shadow-[0_12px_36px_rgba(0,0,0,0.6)] overflow-hidden mx-auto transition-all duration-300">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={profile.avatarUrl}
                 alt={profile.name}
-                className="w-full h-full rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+                className="w-full h-full rounded-xl object-cover grayscale contrast-105 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
               />
+              <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10" />
             </div>
           </motion.div>
         )}
@@ -181,7 +182,7 @@ export function Hero() {
           </div>
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-accent" />
-            <span>Córdoba, Argentina</span>
+            <span>{profile.location}</span>
           </div>
         </motion.div>
       </motion.div>

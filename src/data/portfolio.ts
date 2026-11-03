@@ -81,7 +81,8 @@ export const portfolioData: PortfolioData = {
     name: "Shair Fernando Cuello López",
     alias: "spukerrs",
     role: "AI Product Builder & Creative Technologist",
-    location: "Córdoba, Argentina",
+    location: "Argentina (Remoto)",
+    avatarUrl: "/profile/avatar.webp",
     status: {
       available: true,
       label: "Disponible para nuevos proyectos y colaboraciones",
@@ -97,14 +98,14 @@ export const portfolioData: PortfolioData = {
     socials: [
       {
         name: "GitHub",
-        url: "https://github.com/spukerrs",
-        label: "github.com/spukerrs",
+        url: "https://github.com/Spukerrs",
+        label: "github.com/Spukerrs",
         icon: "github",
       },
       {
         name: "LinkedIn",
-        url: "https://www.linkedin.com/in/shair-cuello",
-        label: "linkedin.com/in/shair-cuello",
+        url: "https://www.linkedin.com/in/shair-fernando-cuello-lopez-86364529a",
+        label: "linkedin.com/in/shair-fernando-cuello-lopez",
         icon: "linkedin",
       },
       {
