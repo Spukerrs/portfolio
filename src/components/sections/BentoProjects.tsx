@@ -236,9 +236,33 @@ export function BentoProjects() {
                     </span>
                   </div>
 
-                  {/* Visualizer / Interactive Abstract Mockup */}
+                  {/* Visualizer / Interactive Abstract Mockup or Real Media */}
                   <div className="mb-6">
-                    <ProjectVisual project={project} />
+                    {project.media ? (
+                      <div className="relative w-full h-44 rounded-xl overflow-hidden border border-border/80 bg-background/80">
+                        {project.media.type === "video" ? (
+                          <video
+                            src={project.media.src}
+                            poster={project.media.poster}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={project.media.src}
+                            alt={project.media.alt || project.title}
+                            className="w-full h-full object-cover"
+                          />
+                        )}
+                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent" />
+                      </div>
+                    ) : (
+                      <ProjectVisual project={project} />
+                    )}
                   </div>
 
                   {/* Title & Tagline */}
@@ -279,7 +303,17 @@ export function BentoProjects() {
                   </div>
 
                   <div className="flex items-center justify-between">
-                    {project.githubUrl && (
+                    {project.repoStatus === "coming_soon" ? (
+                      <div className="inline-flex items-center gap-1.5 text-xs font-mono text-muted/70 bg-white/[0.03] px-2.5 py-1 rounded-md border border-border/40">
+                        <GithubIcon className="w-3.5 h-3.5 opacity-40" aria-hidden="true" />
+                        <span>Repo en preparación</span>
+                      </div>
+                    ) : project.repoStatus === "private" ? (
+                      <div className="inline-flex items-center gap-1.5 text-xs font-mono text-muted/70 bg-white/[0.03] px-2.5 py-1 rounded-md border border-border/40">
+                        <GithubIcon className="w-3.5 h-3.5 opacity-40" aria-hidden="true" />
+                        <span>Código privado</span>
+                      </div>
+                    ) : project.githubUrl ? (
                       <a
                         href={project.githubUrl}
                         target="_blank"
@@ -290,7 +324,7 @@ export function BentoProjects() {
                         <span>Ver código</span>
                         <ArrowUpRight className="w-3 h-3 opacity-60" aria-hidden="true" />
                       </a>
-                    )}
+                    ) : null}
                   </div>
                 </div>
               </motion.article>

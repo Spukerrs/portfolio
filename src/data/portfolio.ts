@@ -18,6 +18,7 @@ export interface Profile {
   bio: string[];
   email: string;
   cvUrl: string;
+  avatarUrl?: string;
   socials: SocialLink[];
 }
 
@@ -37,6 +38,13 @@ export interface Project {
   span: "md:col-span-2" | "md:col-span-1";
   githubUrl?: string;
   demoUrl?: string;
+  repoStatus?: "public" | "private" | "coming_soon";
+  media?: {
+    type: "image" | "video";
+    src: string;
+    poster?: string;
+    alt?: string;
+  };
   abstractVisual: {
     type: "waveform" | "pipeline" | "vision-guard" | "sqlite-grid";
     accentColor: string;
@@ -126,6 +134,7 @@ export const portfolioData: PortfolioData = {
       featured: true,
       span: "md:col-span-2",
       githubUrl: "https://github.com/spukerrs/davinci-autocut-plugin",
+      repoStatus: "coming_soon",
       abstractVisual: {
         type: "waveform",
         accentColor: "#10B981",
@@ -146,6 +155,7 @@ export const portfolioData: PortfolioData = {
       featured: false,
       span: "md:col-span-1",
       githubUrl: "https://github.com/spukerrs/video-ingest-pipeline",
+      repoStatus: "coming_soon",
       abstractVisual: {
         type: "pipeline",
         accentColor: "#38BDF8",
@@ -166,6 +176,7 @@ export const portfolioData: PortfolioData = {
       featured: false,
       span: "md:col-span-1",
       githubUrl: "https://github.com/spukerrs/focusguard-vision",
+      repoStatus: "coming_soon",
       abstractVisual: {
         type: "vision-guard",
         accentColor: "#F59E0B",
@@ -186,6 +197,7 @@ export const portfolioData: PortfolioData = {
       featured: true,
       span: "md:col-span-2",
       githubUrl: "https://github.com/spukerrs/ironbot-ecovida-manager",
+      repoStatus: "coming_soon",
       abstractVisual: {
         type: "sqlite-grid",
         accentColor: "#8B5CF6",
@@ -263,3 +275,4 @@ export const portfolioData: PortfolioData = {
     },
   ],
 };
+

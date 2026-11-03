@@ -80,6 +80,20 @@ export function Hero() {
           </div>
         </motion.div>
 
+        {/* Optional Editorial Avatar / Portrait */}
+        {profile.avatarUrl && (
+          <motion.div variants={itemVariants} className="mb-4">
+            <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1 bg-gradient-to-b from-white/10 to-transparent border border-border shadow-xl overflow-hidden mx-auto">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={profile.avatarUrl}
+                alt={profile.name}
+                className="w-full h-full rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </div>
+          </motion.div>
+        )}
+
         {/* Name and Role Subtitle */}
         <motion.div variants={itemVariants} className="mb-3">
           <span className="inline-block text-xs sm:text-sm font-mono tracking-wider uppercase text-muted-dark">
