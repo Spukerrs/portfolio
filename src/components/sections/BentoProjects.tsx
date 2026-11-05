@@ -9,6 +9,7 @@ import {
   Wrench,
   LayoutGrid,
   Kanban as KanbanIcon,
+  Layers,
 } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/BrandIcons";
 import { portfolioData, type Project, type ProjectCategory } from "@/data/portfolio";
@@ -257,7 +258,7 @@ function ProjectCard({ project, layoutSpanClass = "", isKanbanCard = false }: Pr
   return (
     <article
       className={`group relative flex flex-col justify-between ${
-        isKanbanCard ? "p-5" : "p-6"
+        isKanbanCard ? "p-5 sm:p-6" : "p-6"
       } rounded-2xl bg-surface border border-border hover:border-border-hover transition-all duration-300 hover:shadow-[0_12px_40px_rgba(0,0,0,0.45)] hover:-translate-y-0.5 ${layoutSpanClass}`}
     >
       {/* Card Top: Badges & Category */}
@@ -386,62 +387,83 @@ function ProjectCard({ project, layoutSpanClass = "", isKanbanCard = false }: Pr
   );
 }
 
-const KANBAN_STAGES: {
-  status: Project["status"];
+type StageFilter = "Todas" | Project["status"];
+
+interface StageMeta {
+  status: StageFilter;
   id: string;
   title: string;
+  shortLabel: string;
   description: string;
   badgeClass: string;
+  dotColor: string;
   icon: typeof CheckCircle2;
-}[] = [
+}
+
+const KANBAN_STAGES: StageMeta[] = [
+  {
+    status: "Todas",
+    id: "stage-todas",
+    title: "Todas las Fases",
+    shortLabel: "Todas",
+    description: "Ciclo completo de ingeniería: desde prototipo experimental hasta producción",
+    badgeClass: "text-foreground border-border bg-white/[0.04]",
+    dotColor: "bg-foreground",
+    icon: Layers,
+  },
   {
     status: "En producción",
-    id: "col-produccion",
+    id: "stage-produccion",
     title: "En Producción",
-    description: "Sistemas estables, operativos y verificados",
+    shortLabel: "Producción",
+    description: "Sistemas estables, operativos y verificados en terreno real",
     badgeClass: "text-accent border-accent/30 bg-accent/10",
+    dotColor: "bg-accent",
     icon: CheckCircle2,
   },
   {
     status: "En desarrollo",
-    id: "col-desarrollo",
+    id: "stage-desarrollo",
     title: "En Desarrollo Activo",
-    description: "Iteración técnica continua y nuevas características",
+    shortLabel: "Desarrollo",
+    description: "Iteración técnica continua, refactor y nuevas características",
     badgeClass: "text-accent-sky border-accent-sky/30 bg-accent-sky/10",
+    dotColor: "bg-accent-sky",
     icon: Clock,
   },
   {
     status: "Prototipo",
-    id: "col-prototipo",
+    id: "stage-prototipo",
     title: "Laboratorio & Prototipos",
-    description: "Pruebas de concepto, exploración e inclusión",
+    shortLabel: "Prototipos",
+    description: "Pruebas de concepto, visión artificial e inclusión asistiva",
     badgeClass: "text-amber-400 border-amber-400/30 bg-amber-400/10",
+    dotColor: "bg-amber-400",
     icon: Wrench,
   },
 ];
 
 export function BentoProjects() {
-  const [viewMode, setViewMode] = useState<"bento" | "kanban">("bento");
+  const [viewMode, setViewMode] = useState<"bento" | "kanban">("kanban");
   const [selectedCategory, setSelectedCategory] = useState<"Todos" | ProjectCategory>("Todos");
-  const [activeMobileCol, setActiveMobileCol] = useState<string>("col-produccion");
+  const [selectedStage, setSelectedStage] = useState<StageFilter>("Todas");
 
-  const filteredProjects =
+  const filteredBentoProjects =
     selectedCategory === "Todos"
       ? portfolioData.projects
       : portfolioData.projects.filter((p) => p.category === selectedCategory);
 
-  const scrollMobileCol = (colId: string) => {
-    setActiveMobileCol(colId);
-    const element = document.getElementById(colId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-    }
-  };
+  const filteredKanbanProjects =
+    selectedStage === "Todas"
+      ? portfolioData.projects
+      : portfolioData.projects.filter((p) => p.status === selectedStage);
+
+  const activeStageMeta = KANBAN_STAGES.find((s) => s.status === selectedStage) || KANBAN_STAGES[0];
 
   return (
     <section id="proyectos" className="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto scroll-mt-20">
       {/* Section Header */}
-      <div className="flex flex-col items-center text-center mb-8">
+      <div className="flex flex-col items-center text-center mb-10">
         <span className="text-xs font-mono uppercase tracking-wider text-accent mb-2">
           Portafolio de Soluciones
         </span>
@@ -456,19 +478,6 @@ export function BentoProjects() {
         <div className="inline-flex items-center p-1 rounded-2xl bg-surface border border-border mb-6">
           <button
             type="button"
-            onClick={() => setViewMode("bento")}
-            aria-label="Ver proyectos en grilla Bento"
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
-              viewMode === "bento"
-                ? "bg-white/[0.08] text-foreground font-semibold shadow-sm border border-border"
-                : "text-muted hover:text-foreground"
-            }`}
-          >
-            <LayoutGrid className="w-3.5 h-3.5" aria-hidden="true" />
-            <span>Grilla Bento</span>
-          </button>
-          <button
-            type="button"
             onClick={() => setViewMode("kanban")}
             aria-label="Ver proyectos en pipeline Kanban por ciclo de vida"
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
@@ -480,9 +489,22 @@ export function BentoProjects() {
             <KanbanIcon className="w-3.5 h-3.5" aria-hidden="true" />
             <span>Pipeline Kanban</span>
           </button>
+          <button
+            type="button"
+            onClick={() => setViewMode("bento")}
+            aria-label="Ver proyectos en grilla Bento"
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+              viewMode === "bento"
+                ? "bg-white/[0.08] text-foreground font-semibold shadow-sm border border-border"
+                : "text-muted hover:text-foreground"
+            }`}
+          >
+            <LayoutGrid className="w-3.5 h-3.5" aria-hidden="true" />
+            <span>Grilla Bento</span>
+          </button>
         </div>
 
-        {/* Category Filters (Bento Mode) */}
+        {/* CONTROLS: Bento Category Filters with Motion Blur */}
         {viewMode === "bento" && (
           <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-full bg-surface border border-border">
             {portfolioData.categories.map((cat) => {
@@ -500,7 +522,7 @@ export function BentoProjects() {
                     <motion.div
                       layoutId="categoryPill"
                       className="absolute inset-0 rounded-full bg-white/[0.08] border border-border"
-                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                      transition={{ type: "spring", stiffness: 380, damping: 28 }}
                     />
                   )}
                   <span className="relative z-10">{cat}</span>
@@ -510,44 +532,69 @@ export function BentoProjects() {
           </div>
         )}
 
-        {/* Mobile Quick Column Selector Tabs (Kanban Mode) */}
+        {/* CONTROLS: Kanban Stage Tags (PC & Mobile Unified) */}
         {viewMode === "kanban" && (
-          <div className="flex md:hidden items-center justify-center gap-1.5 p-1 rounded-2xl bg-surface border border-border w-full max-w-sm overflow-x-auto">
-            {KANBAN_STAGES.map((col) => {
-              const count = portfolioData.projects.filter((p) => p.status === col.status).length;
-              const isActive = activeMobileCol === col.id;
-              return (
-                <button
-                  key={col.id}
-                  type="button"
-                  onClick={() => scrollMobileCol(col.id)}
-                  className={`flex-1 py-1.5 px-2.5 rounded-xl text-[11px] font-mono transition-colors whitespace-nowrap cursor-pointer ${
-                    isActive
-                      ? "bg-white/[0.08] text-foreground font-semibold border border-border"
-                      : "text-muted hover:text-foreground"
-                  }`}
-                >
-                  <span>{col.title.split(" ")[1] || col.title}</span>
-                  <span className="ml-1 opacity-60">({count})</span>
-                </button>
-              );
-            })}
+          <div className="flex flex-col items-center gap-4 w-full">
+            <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-full bg-surface border border-border">
+              {KANBAN_STAGES.map((stage) => {
+                const count =
+                  stage.status === "Todas"
+                    ? portfolioData.projects.length
+                    : portfolioData.projects.filter((p) => p.status === stage.status).length;
+                const isSelected = selectedStage === stage.status;
+                const StageIcon = stage.icon;
+
+                return (
+                  <button
+                    key={stage.id}
+                    type="button"
+                    onClick={() => setSelectedStage(stage.status)}
+                    className={`relative flex items-center gap-2 px-3.5 py-1.5 text-xs font-mono rounded-full transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                      isSelected ? "text-foreground font-semibold" : "text-muted hover:text-foreground"
+                    }`}
+                  >
+                    {isSelected && (
+                      <motion.div
+                        layoutId="kanbanStagePill"
+                        className="absolute inset-0 rounded-full bg-white/[0.08] border border-border"
+                        transition={{ type: "spring", stiffness: 380, damping: 28 }}
+                      />
+                    )}
+                    <StageIcon className="w-3.5 h-3.5 relative z-10" aria-hidden="true" />
+                    <span className="relative z-10">{stage.title}</span>
+                    <span className="relative z-10 text-[10px] opacity-60">({count})</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Stage Description Context Banner */}
+            <motion.div
+              key={activeStageMeta.id}
+              initial={{ opacity: 0, y: 6, filter: "blur(6px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
+              className="text-xs font-mono text-muted-dark max-w-xl text-center"
+            >
+              <span className="text-foreground/90 font-medium">{activeStageMeta.title}: </span>
+              <span>{activeStageMeta.description}</span>
+            </motion.div>
           </div>
         )}
       </div>
 
-      {/* VIEW 1: BENTO GRID */}
+      {/* VIEW 1: BENTO GRID with Gaussian Blur Reveal */}
       {viewMode === "bento" && (
         <motion.div layout className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
+            {filteredBentoProjects.map((project) => (
               <motion.div
                 key={project.id}
                 layout
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, y: 16, filter: "blur(8px)", scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }}
+                exit={{ opacity: 0, y: -10, filter: "blur(6px)", scale: 0.98 }}
+                transition={{ duration: 0.32, ease: [0.23, 1, 0.32, 1] }}
                 className={project.span === "md:col-span-2" ? "md:col-span-2" : "md:col-span-1"}
               >
                 <ProjectCard project={project} />
@@ -557,59 +604,72 @@ export function BentoProjects() {
         </motion.div>
       )}
 
-      {/* VIEW 2: KANBAN PIPELINE */}
+      {/* VIEW 2: KANBAN PIPELINE (Etiquetas + Scroll Vertical en PC y Móvil) */}
       {viewMode === "kanban" && (
-        <div className="relative">
-          {/* Helper hint for mobile horizontal swipe */}
-          <div className="md:hidden text-center text-xs font-mono text-muted-dark mb-3">
-            Desliza horizontalmente para explorar las fases del ciclo de vida
-          </div>
+        <div className="relative w-full">
+          {selectedStage === "Todas" ? (
+            /* Todas las fases agrupadas verticalmente para escrollear continuo */
+            <div className="space-y-12">
+              {KANBAN_STAGES.filter((s) => s.status !== "Todas").map((stage) => {
+                const stageProjects = portfolioData.projects.filter((p) => p.status === stage.status);
+                const StageIcon = stage.icon;
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-6 -mx-4 px-4 scrollbar-none md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:mx-0 md:px-0 items-start">
-            {KANBAN_STAGES.map((col) => {
-              const stageProjects = portfolioData.projects.filter((p) => p.status === col.status);
-              const ColIcon = col.icon;
-
-              return (
-                <section
-                  key={col.id}
-                  id={col.id}
-                  className="w-[86vw] sm:w-[350px] shrink-0 snap-center md:w-auto flex flex-col p-4 sm:p-5 rounded-3xl bg-surface/35 border border-border/60"
-                >
-                  {/* Column Header */}
-                  <div className="pb-4 mb-4 border-b border-border/50">
-                    <div className="flex items-center justify-between gap-2 mb-1.5">
-                      <div className="flex items-center gap-2">
+                return (
+                  <section key={stage.id} className="scroll-mt-24">
+                    {/* Sticky Engineering Phase Header */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 mb-6 border-b border-border/60">
+                      <div className="flex items-center gap-2.5">
                         <span
-                          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-mono font-medium border ${col.badgeClass}`}
+                          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium border ${stage.badgeClass}`}
                         >
-                          <ColIcon className="w-3.5 h-3.5" aria-hidden="true" />
-                          <span>{col.title}</span>
+                          <StageIcon className="w-3.5 h-3.5" aria-hidden="true" />
+                          <span>{stage.title}</span>
+                        </span>
+                        <span className="text-xs font-mono text-muted">
+                          {stageProjects.length} {stageProjects.length === 1 ? "proyecto" : "proyectos"}
                         </span>
                       </div>
-                      <span className="px-2 py-0.5 rounded-md bg-background border border-border/80 text-xs font-mono text-muted">
-                        {stageProjects.length}
-                      </span>
+                      <p className="text-xs font-mono text-muted-dark">
+                        {stage.description}
+                      </p>
                     </div>
-                    <p className="text-[11px] font-mono text-muted-dark">
-                      {col.description}
-                    </p>
-                  </div>
 
-                  {/* Column Cards Stack */}
-                  <div className="flex flex-col gap-4">
-                    {stageProjects.map((project) => (
-                      <ProjectCard
-                        key={project.id}
-                        project={project}
-                        isKanbanCard={true}
-                      />
-                    ))}
-                  </div>
-                </section>
-              );
-            })}
-          </div>
+                    {/* Vertical Cards Grid with Blur Reveal */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {stageProjects.map((project) => (
+                        <motion.div
+                          key={project.id}
+                          initial={{ opacity: 0, y: 16, filter: "blur(8px)", scale: 0.98 }}
+                          animate={{ opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }}
+                          transition={{ duration: 0.32, ease: [0.23, 1, 0.32, 1] }}
+                        >
+                          <ProjectCard project={project} isKanbanCard={true} />
+                        </motion.div>
+                      ))}
+                    </div>
+                  </section>
+                );
+              })}
+            </div>
+          ) : (
+            /* Fase específica seleccionada: scroll vertical fluido de esa etiqueta */
+            <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <AnimatePresence mode="popLayout">
+                {filteredKanbanProjects.map((project) => (
+                  <motion.div
+                    key={project.id}
+                    layout
+                    initial={{ opacity: 0, y: 18, filter: "blur(10px)", scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }}
+                    exit={{ opacity: 0, y: -12, filter: "blur(8px)", scale: 0.97 }}
+                    transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
+                  >
+                    <ProjectCard project={project} isKanbanCard={true} />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
+          )}
         </div>
       )}
     </section>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { toast } from "sonner";
 import { Copy, Check, Mail, ArrowUpRight, MessageSquare, ExternalLink, ChevronDown } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/BrandIcons";
@@ -110,48 +111,56 @@ export function Contact() {
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${menuOpen ? "rotate-180" : ""}`} aria-hidden="true" />
               </button>
 
-              {/* Dropdown Menu */}
-              {menuOpen && (
-                <div className="absolute right-0 bottom-full sm:bottom-auto sm:top-full mb-2 sm:mb-0 sm:mt-2 w-64 p-2 rounded-2xl bg-surface/95 backdrop-blur-xl border border-border shadow-2xl z-50 text-left animate-in fade-in zoom-in-95 duration-150">
-                  <div className="px-3 py-1.5 text-[11px] font-mono text-muted-dark border-b border-border/50 uppercase tracking-wider">
-                    Selecciona cómo contactar:
-                  </div>
-
-                  <a
-                    href={gmailUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setMenuOpen(false)}
-                    className="flex items-center justify-between w-full px-3 py-2.5 rounded-xl hover:bg-white/[0.06] text-xs font-medium text-foreground transition-colors mt-1"
+              {/* Dropdown Menu with Gaussian Blur Reveal */}
+              <AnimatePresence>
+                {menuOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -8, scale: 0.97, filter: "blur(6px)" }}
+                    animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, y: -6, scale: 0.97, filter: "blur(4px)" }}
+                    transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
+                    className="absolute right-0 bottom-full sm:bottom-auto sm:top-full mb-2 sm:mb-0 sm:mt-2 w-64 p-2 rounded-2xl bg-surface/95 backdrop-blur-xl border border-border shadow-2xl z-50 text-left"
                   >
-                    <span className="flex items-center gap-2">
-                      <ExternalLink className="w-3.5 h-3.5 text-accent" aria-hidden="true" />
-                      <span>Abrir en Gmail Web</span>
-                    </span>
-                    <span className="text-[10px] font-mono text-muted-dark">Recomendado</span>
-                  </a>
+                    <div className="px-3 py-1.5 text-[11px] font-mono text-muted-dark border-b border-border/50 uppercase tracking-wider">
+                      Selecciona cómo contactar:
+                    </div>
 
-                  <a
-                    href={`mailto:${profile.email}`}
-                    onClick={() => setMenuOpen(false)}
-                    className="flex items-center justify-between w-full px-3 py-2.5 rounded-xl hover:bg-white/[0.06] text-xs font-medium text-muted hover:text-foreground transition-colors"
-                  >
-                    <span className="flex items-center gap-2">
-                      <Mail className="w-3.5 h-3.5 text-accent-sky" aria-hidden="true" />
-                      <span>Cliente de correo (App)</span>
-                    </span>
-                  </a>
+                    <a
+                      href={gmailUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center justify-between w-full px-3 py-2.5 rounded-xl hover:bg-white/[0.06] text-xs font-medium text-foreground transition-colors mt-1"
+                    >
+                      <span className="flex items-center gap-2">
+                        <ExternalLink className="w-3.5 h-3.5 text-accent" aria-hidden="true" />
+                        <span>Abrir en Gmail Web</span>
+                      </span>
+                      <span className="text-[10px] font-mono text-muted-dark">Recomendado</span>
+                    </a>
 
-                  <button
-                    type="button"
-                    onClick={handleCopyEmail}
-                    className="flex items-center gap-2 w-full px-3 py-2.5 rounded-xl hover:bg-white/[0.06] text-xs font-medium text-muted hover:text-foreground transition-colors text-left border-t border-border/40 mt-1"
-                  >
-                    <Copy className="w-3.5 h-3.5" aria-hidden="true" />
-                    <span>Copiar dirección</span>
-                  </button>
-                </div>
-              )}
+                    <a
+                      href={`mailto:${profile.email}`}
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center justify-between w-full px-3 py-2.5 rounded-xl hover:bg-white/[0.06] text-xs font-medium text-muted hover:text-foreground transition-colors"
+                    >
+                      <span className="flex items-center gap-2">
+                        <Mail className="w-3.5 h-3.5 text-accent-sky" aria-hidden="true" />
+                        <span>Cliente de correo (App)</span>
+                      </span>
+                    </a>
+
+                    <button
+                      type="button"
+                      onClick={handleCopyEmail}
+                      className="flex items-center gap-2 w-full px-3 py-2.5 rounded-xl hover:bg-white/[0.06] text-xs font-medium text-muted hover:text-foreground transition-colors text-left border-t border-border/40 mt-1 cursor-pointer"
+                    >
+                      <Copy className="w-3.5 h-3.5" aria-hidden="true" />
+                      <span>Copiar dirección</span>
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </div>

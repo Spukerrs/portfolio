@@ -12,6 +12,8 @@
   --accent: #10b981;
   --accent-muted: rgba(16, 185, 129, 0.12);
   --accent-sky: #38bdf8;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 @theme inline {
