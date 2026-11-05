@@ -7,14 +7,12 @@ import {
   CheckCircle2,
   Clock,
   Wrench,
-  LayoutGrid,
   ChevronLeft,
   ChevronRight,
   Layers,
-  Sparkles,
 } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/BrandIcons";
-import { portfolioData, type Project, type ProjectCategory } from "@/data/portfolio";
+import { portfolioData, type Project } from "@/data/portfolio";
 
 function ProjectVisual({ project }: { project: Project }) {
   const { type } = project.abstractVisual;
@@ -52,7 +50,7 @@ function ProjectVisual({ project }: { project: Project }) {
 
         {/* Action feedback */}
         <div className="flex items-center justify-between text-xs">
-          <span className="text-muted">DaVinci Timeline: 14 cortes</span>
+          <span className="text-muted">DaVinci Timeline: 14 cortes aplicados</span>
           <span className="text-accent font-medium">Latencia: 0ms (Local)</span>
         </div>
       </div>
@@ -227,13 +225,7 @@ function ProjectVisual({ project }: { project: Project }) {
   );
 }
 
-interface ProjectCardProps {
-  project: Project;
-  layoutSpanClass?: string;
-  isShelfCard?: boolean;
-}
-
-function ProjectCard({ project, layoutSpanClass = "", isShelfCard = false }: ProjectCardProps) {
+function ShelfProjectCard({ project }: { project: Project }) {
   const getStatusConfig = (status: Project["status"]) => {
     switch (status) {
       case "En producción":
@@ -258,13 +250,7 @@ function ProjectCard({ project, layoutSpanClass = "", isShelfCard = false }: Pro
   const StatusIcon = statusConfig.icon;
 
   return (
-    <article
-      className={`group relative flex flex-col justify-between ${
-        isShelfCard
-          ? "w-[88vw] sm:w-[420px] shrink-0 snap-start p-6 rounded-3xl bg-surface border border-border hover:border-border-hover transition-all duration-300 hover:shadow-[0_16px_48px_rgba(0,0,0,0.5)] select-none h-full"
-          : "p-6 rounded-2xl bg-surface border border-border hover:border-border-hover transition-all duration-300 hover:shadow-[0_12px_40px_rgba(0,0,0,0.45)] hover:-translate-y-0.5"
-      } ${layoutSpanClass}`}
-    >
+    <article className="w-[88vw] sm:w-[440px] shrink-0 snap-start p-6 sm:p-7 rounded-3xl bg-surface border border-border hover:border-border-hover transition-all duration-300 hover:shadow-[0_16px_48px_rgba(0,0,0,0.5)] select-none h-full flex flex-col justify-between">
       {/* Card Top: Badges & Category */}
       <div>
         <div className="flex items-center justify-between gap-2 mb-4">
@@ -309,14 +295,14 @@ function ProjectCard({ project, layoutSpanClass = "", isShelfCard = false }: Pro
         </div>
 
         {/* Title & Tagline */}
-        <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground group-hover:text-accent transition-colors mb-2">
+        <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground group-hover:text-accent transition-colors mb-2">
           {project.title}
         </h3>
-        <p className="text-xs sm:text-sm font-medium text-muted mb-3">{project.tagline}</p>
+        <p className="text-xs sm:text-sm font-medium text-muted mb-4 leading-snug">{project.tagline}</p>
 
         {/* Co-Author Badge (e.g. Santiago Román) */}
         {project.coAuthor && (
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.04] border border-border/60 text-xs font-mono text-muted mb-4">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/[0.04] border border-border/60 text-xs font-mono text-muted mb-5">
             <span>Co-desarrollado con</span>
             <a
               href={project.coAuthor.linkedinUrl}
@@ -331,14 +317,14 @@ function ProjectCard({ project, layoutSpanClass = "", isShelfCard = false }: Pro
           </div>
         )}
 
-        {/* Editorial Problem vs Solution breakdown */}
-        <div className="space-y-2.5 text-xs text-muted leading-relaxed mb-6">
+        {/* Editorial Problem vs Solution breakdown designed for reading comfort */}
+        <div className="space-y-3 text-xs sm:text-[13px] text-muted leading-relaxed mb-6">
           <p>
-            <strong className="text-foreground/90 font-semibold font-mono">Problema: </strong>
+            <strong className="text-foreground/90 font-semibold font-mono block sm:inline">Problema: </strong>
             {project.problem}
           </p>
           <p>
-            <strong className="text-accent font-semibold font-mono">Solución: </strong>
+            <strong className="text-accent font-semibold font-mono block sm:inline">Solución: </strong>
             {project.solution}
           </p>
           {project.metrics && (
@@ -448,8 +434,6 @@ const KANBAN_STAGES: StageMeta[] = [
 ];
 
 export function BentoProjects() {
-  const [viewMode, setViewMode] = useState<"shelf" | "bento">("shelf");
-  const [selectedCategory, setSelectedCategory] = useState<"Todos" | ProjectCategory>("Todos");
   const [selectedStage, setSelectedStage] = useState<StageFilter>("Todas");
 
   // Shelf Drag & Scroll State
@@ -463,11 +447,6 @@ export function BentoProjects() {
   const startXRef = useRef(0);
   const scrollLeftRef = useRef(0);
   const dragDistanceRef = useRef(0);
-
-  const filteredBentoProjects =
-    selectedCategory === "Todos"
-      ? portfolioData.projects
-      : portfolioData.projects.filter((p) => p.category === selectedCategory);
 
   const filteredShelfProjects =
     selectedStage === "Todas"
@@ -486,8 +465,8 @@ export function BentoProjects() {
     const progress = maxScroll > 0 ? (el.scrollLeft / maxScroll) * 100 : 0;
     setScrollProgress(Math.min(100, Math.max(0, progress)));
 
-    // Approximate active card (card width ~420px + gap 24px)
-    const cardStep = 444;
+    // Approximate active card (card width ~440px + gap 24px)
+    const cardStep = 464;
     const index = Math.min(
       filteredShelfProjects.length - 1,
       Math.max(0, Math.round(el.scrollLeft / cardStep))
@@ -510,7 +489,7 @@ export function BentoProjects() {
   const scrollByOffset = (direction: "left" | "right") => {
     const el = shelfRef.current;
     if (!el) return;
-    const offset = direction === "left" ? -444 : 444;
+    const offset = direction === "left" ? -464 : 464;
     el.scrollBy({ left: offset, behavior: "smooth" });
   };
 
@@ -580,214 +559,123 @@ export function BentoProjects() {
           Software construido para resolver fricciones reales en video, automatización y desarrollo digital.
         </p>
 
-        {/* View Mode Switcher: Shelf vs Bento */}
-        <div className="inline-flex items-center p-1 rounded-2xl bg-surface border border-border mb-6">
-          <button
-            type="button"
-            onClick={() => setViewMode("shelf")}
-            aria-label="Ver proyectos en carrusel horizontal con navegación continua"
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
-              viewMode === "shelf"
-                ? "bg-white/[0.08] text-foreground font-semibold shadow-sm border border-border"
-                : "text-muted hover:text-foreground"
-            }`}
-          >
-            <Sparkles className="w-3.5 h-3.5 text-accent" aria-hidden="true" />
-            <span>Cinta Horizontal (Shelf)</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setViewMode("bento")}
-            aria-label="Ver proyectos en grilla Bento tradicional"
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
-              viewMode === "bento"
-                ? "bg-white/[0.08] text-foreground font-semibold shadow-sm border border-border"
-                : "text-muted hover:text-foreground"
-            }`}
-          >
-            <LayoutGrid className="w-3.5 h-3.5" aria-hidden="true" />
-            <span>Grilla Bento</span>
-          </button>
-        </div>
-
-        {/* CONTROLS: Shelf Stage Tags with Motion Spring */}
-        {viewMode === "shelf" && (
-          <div className="flex flex-col items-center gap-4 w-full">
-            <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-full bg-surface border border-border">
-              {KANBAN_STAGES.map((stage) => {
-                const count =
-                  stage.status === "Todas"
-                    ? portfolioData.projects.length
-                    : portfolioData.projects.filter((p) => p.status === stage.status).length;
-                const isSelected = selectedStage === stage.status;
-                const StageIcon = stage.icon;
-
-                return (
-                  <button
-                    key={stage.id}
-                    type="button"
-                    onClick={() => handleSelectStage(stage.status)}
-                    className={`relative flex items-center gap-2 px-3.5 py-1.5 text-xs font-mono rounded-full transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
-                      isSelected ? "text-foreground font-semibold" : "text-muted hover:text-foreground"
-                    }`}
-                  >
-                    {isSelected && (
-                      <motion.div
-                        layoutId="shelfStagePill"
-                        className="absolute inset-0 rounded-full bg-white/[0.08] border border-border"
-                        transition={{ type: "spring", stiffness: 380, damping: 28 }}
-                      />
-                    )}
-                    <StageIcon className="w-3.5 h-3.5 relative z-10" aria-hidden="true" />
-                    <span className="relative z-10">{stage.title}</span>
-                    <span className="relative z-10 text-[10px] opacity-60">({count})</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Stage Description Context Banner */}
-            <motion.div
-              key={activeStageMeta.id}
-              initial={{ opacity: 0, y: 6, filter: "blur(6px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
-              className="text-xs font-mono text-muted-dark max-w-xl text-center"
-            >
-              <span className="text-foreground/90 font-medium">{activeStageMeta.title}: </span>
-              <span>{activeStageMeta.description}</span>
-            </motion.div>
-          </div>
-        )}
-
-        {/* CONTROLS: Bento Category Filters */}
-        {viewMode === "bento" && (
+        {/* Shelf Stage Tags with Motion Spring */}
+        <div className="flex flex-col items-center gap-4 w-full">
           <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-full bg-surface border border-border">
-            {portfolioData.categories.map((cat) => {
-              const isSelected = selectedCategory === cat;
+            {KANBAN_STAGES.map((stage) => {
+              const count =
+                stage.status === "Todas"
+                  ? portfolioData.projects.length
+                  : portfolioData.projects.filter((p) => p.status === stage.status).length;
+              const isSelected = selectedStage === stage.status;
+              const StageIcon = stage.icon;
+
               return (
                 <button
-                  key={cat}
+                  key={stage.id}
                   type="button"
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`relative px-4 py-1.5 text-xs font-medium rounded-full transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                  onClick={() => handleSelectStage(stage.status)}
+                  className={`relative flex items-center gap-2 px-3.5 py-1.5 text-xs font-mono rounded-full transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                     isSelected ? "text-foreground font-semibold" : "text-muted hover:text-foreground"
                   }`}
                 >
                   {isSelected && (
                     <motion.div
-                      layoutId="bentoCategoryPill"
+                      layoutId="shelfStagePill"
                       className="absolute inset-0 rounded-full bg-white/[0.08] border border-border"
                       transition={{ type: "spring", stiffness: 380, damping: 28 }}
                     />
                   )}
-                  <span className="relative z-10">{cat}</span>
+                  <StageIcon className="w-3.5 h-3.5 relative z-10" aria-hidden="true" />
+                  <span className="relative z-10">{stage.title}</span>
+                  <span className="relative z-10 text-[10px] opacity-60">({count})</span>
                 </button>
               );
             })}
           </div>
-        )}
+
+          {/* Stage Description Context Banner */}
+          <motion.div
+            key={activeStageMeta.id}
+            initial={{ opacity: 0, y: 6, filter: "blur(6px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
+            className="text-xs font-mono text-muted-dark max-w-xl text-center"
+          >
+            <span className="text-foreground/90 font-medium">{activeStageMeta.title}: </span>
+            <span>{activeStageMeta.description}</span>
+          </motion.div>
+        </div>
       </div>
 
-      {/* VIEW 1: HORIZONTAL SHELF (Opción A - Apple/Linear Style) */}
-      {viewMode === "shelf" && (
-        <div className="relative w-full">
-          {/* Top Control Bar: Active position counter, hints, and arrow navigation */}
-          <div className="flex items-center justify-between pb-4 mb-2 border-b border-border/40 text-xs font-mono">
-            <div className="flex items-center gap-3">
-              <span className="px-2.5 py-1 rounded-lg bg-surface border border-border text-foreground font-semibold">
-                {String(activeIndex + 1).padStart(2, "0")} / {String(filteredShelfProjects.length).padStart(2, "0")}
-              </span>
-              <span className="text-muted-dark hidden sm:inline">
-                Arrastra con el ratón o usa las flechas
-              </span>
-            </div>
-
-            {/* Navigation Buttons (< and >) */}
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => scrollByOffset("left")}
-                disabled={!canScrollLeft}
-                aria-label="Proyecto anterior"
-                className={`p-2 rounded-xl bg-surface border border-border transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
-                  canScrollLeft
-                    ? "hover:bg-white/[0.08] text-foreground hover:border-border-hover"
-                    : "opacity-35 cursor-not-allowed text-muted"
-                }`}
-              >
-                <ChevronLeft className="w-4 h-4" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollByOffset("right")}
-                disabled={!canScrollRight}
-                aria-label="Proyecto siguiente"
-                className={`p-2 rounded-xl bg-surface border border-border transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
-                  canScrollRight
-                    ? "hover:bg-white/[0.08] text-foreground hover:border-border-hover"
-                    : "opacity-35 cursor-not-allowed text-muted"
-                }`}
-              >
-                <ChevronRight className="w-4 h-4" aria-hidden="true" />
-              </button>
-            </div>
+      {/* HORIZONTAL SHELF CAROUSEL */}
+      <div className="relative w-full">
+        {/* Top Control Bar: Active position counter, hints, and arrow navigation */}
+        <div className="flex items-center justify-between pb-4 mb-2 border-b border-border/40 text-xs font-mono">
+          <div className="flex items-center gap-3">
+            <span className="px-2.5 py-1 rounded-lg bg-surface border border-border text-foreground font-semibold">
+              {String(activeIndex + 1).padStart(2, "0")} / {String(filteredShelfProjects.length).padStart(2, "0")}
+            </span>
+            <span className="text-muted-dark hidden sm:inline">
+              Arrastra con el ratón o usa las flechas
+            </span>
           </div>
 
-          {/* Left and right gradient fade masks for smooth visual blending */}
-          {canScrollLeft && (
-            <div className="pointer-events-none absolute left-0 top-14 bottom-6 w-12 bg-gradient-to-r from-background via-background/70 to-transparent z-10 hidden sm:block rounded-l-2xl" />
-          )}
-          {canScrollRight && (
-            <div className="pointer-events-none absolute right-0 top-14 bottom-6 w-16 bg-gradient-to-l from-background via-background/70 to-transparent z-10 hidden sm:block rounded-r-2xl" />
-          )}
-
-          {/* Horizontal Track Container */}
-          <div
-            ref={shelfRef}
-            tabIndex={0}
-            role="region"
-            aria-label="Carrusel horizontal de proyectos"
-            onKeyDown={handleKeyDown}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseLeave}
-            onClickCapture={handleClickCapture}
-            className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-6 pt-2 scrollbar-none cursor-grab active:cursor-grabbing focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent/40 rounded-2xl items-stretch"
-          >
-            <AnimatePresence mode="popLayout">
-              {filteredShelfProjects.map((project) => (
-                <motion.div
-                  key={project.id}
-                  layout
-                  initial={{ opacity: 0, y: 16, filter: "blur(8px)", scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }}
-                  exit={{ opacity: 0, y: -10, filter: "blur(6px)", scale: 0.98 }}
-                  transition={{ duration: 0.32, ease: [0.23, 1, 0.32, 1] }}
-                  className="shrink-0 flex h-full"
-                >
-                  <ProjectCard project={project} isShelfCard={true} />
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
-
-          {/* Bottom Progress Bar Track */}
-          <div className="w-full h-1 bg-surface rounded-full overflow-hidden mt-2 border border-border/40">
-            <div
-              style={{ width: `${scrollProgress}%` }}
-              className="h-full bg-accent transition-all duration-150 ease-out rounded-full"
-            />
+          {/* Navigation Buttons (< and >) */}
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => scrollByOffset("left")}
+              disabled={!canScrollLeft}
+              aria-label="Proyecto anterior"
+              className={`p-2 rounded-xl bg-surface border border-border transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                canScrollLeft
+                  ? "hover:bg-white/[0.08] text-foreground hover:border-border-hover"
+                  : "opacity-35 cursor-not-allowed text-muted"
+              }`}
+            >
+              <ChevronLeft className="w-4 h-4" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollByOffset("right")}
+              disabled={!canScrollRight}
+              aria-label="Proyecto siguiente"
+              className={`p-2 rounded-xl bg-surface border border-border transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                canScrollRight
+                  ? "hover:bg-white/[0.08] text-foreground hover:border-border-hover"
+                  : "opacity-35 cursor-not-allowed text-muted"
+              }`}
+            >
+              <ChevronRight className="w-4 h-4" aria-hidden="true" />
+            </button>
           </div>
         </div>
-      )}
 
-      {/* VIEW 2: BENTO GRID with Gaussian Blur Reveal */}
-      {viewMode === "bento" && (
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Left and right gradient fade masks for smooth visual blending */}
+        {canScrollLeft && (
+          <div className="pointer-events-none absolute left-0 top-14 bottom-6 w-12 bg-gradient-to-r from-background via-background/70 to-transparent z-10 hidden sm:block rounded-l-2xl" />
+        )}
+        {canScrollRight && (
+          <div className="pointer-events-none absolute right-0 top-14 bottom-6 w-16 bg-gradient-to-l from-background via-background/70 to-transparent z-10 hidden sm:block rounded-r-2xl" />
+        )}
+
+        {/* Horizontal Track Container */}
+        <div
+          ref={shelfRef}
+          tabIndex={0}
+          role="region"
+          aria-label="Carrusel horizontal de proyectos"
+          onKeyDown={handleKeyDown}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+          onClickCapture={handleClickCapture}
+          className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-6 pt-2 scrollbar-none cursor-grab active:cursor-grabbing focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent/40 rounded-2xl items-stretch"
+        >
           <AnimatePresence mode="popLayout">
-            {filteredBentoProjects.map((project) => (
+            {filteredShelfProjects.map((project) => (
               <motion.div
                 key={project.id}
                 layout
@@ -795,14 +683,22 @@ export function BentoProjects() {
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }}
                 exit={{ opacity: 0, y: -10, filter: "blur(6px)", scale: 0.98 }}
                 transition={{ duration: 0.32, ease: [0.23, 1, 0.32, 1] }}
-                className={project.span === "md:col-span-2" ? "md:col-span-2" : "md:col-span-1"}
+                className="shrink-0 flex h-full"
               >
-                <ProjectCard project={project} />
+                <ShelfProjectCard project={project} />
               </motion.div>
             ))}
           </AnimatePresence>
-        </motion.div>
-      )}
+        </div>
+
+        {/* Bottom Progress Bar Track */}
+        <div className="w-full h-1 bg-surface rounded-full overflow-hidden mt-2 border border-border/40">
+          <div
+            style={{ width: `${scrollProgress}%` }}
+            className="h-full bg-accent transition-all duration-150 ease-out rounded-full"
+          />
+        </div>
+      </div>
     </section>
   );
 }
