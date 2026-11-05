@@ -2,7 +2,14 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowUpRight, CheckCircle2, Clock, Wrench } from "lucide-react";
+import {
+  ArrowUpRight,
+  CheckCircle2,
+  Clock,
+  Wrench,
+  LayoutGrid,
+  Kanban as KanbanIcon,
+} from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/BrandIcons";
 import { portfolioData, type Project, type ProjectCategory } from "@/data/portfolio";
 
@@ -217,15 +224,14 @@ function ProjectVisual({ project }: { project: Project }) {
   );
 }
 
-export function BentoProjects() {
-  const [selectedCategory, setSelectedCategory] = useState<"Todos" | ProjectCategory>("Todos");
+interface ProjectCardProps {
+  project: Project;
+  layoutSpanClass?: string;
+  isKanbanCard?: boolean;
+}
 
-  const filteredProjects =
-    selectedCategory === "Todos"
-      ? portfolioData.projects
-      : portfolioData.projects.filter((p) => p.category === selectedCategory);
-
-  const getStatusBadge = (status: Project["status"]) => {
+function ProjectCard({ project, layoutSpanClass = "", isKanbanCard = false }: ProjectCardProps) {
+  const getStatusConfig = (status: Project["status"]) => {
     switch (status) {
       case "En producción":
         return {
@@ -245,193 +251,367 @@ export function BentoProjects() {
     }
   };
 
+  const statusConfig = getStatusConfig(project.status);
+  const StatusIcon = statusConfig.icon;
+
+  return (
+    <article
+      className={`group relative flex flex-col justify-between ${
+        isKanbanCard ? "p-5" : "p-6"
+      } rounded-2xl bg-surface border border-border hover:border-border-hover transition-all duration-300 hover:shadow-[0_12px_40px_rgba(0,0,0,0.45)] hover:-translate-y-0.5 ${layoutSpanClass}`}
+    >
+      {/* Card Top: Badges & Category */}
+      <div>
+        <div className="flex items-center justify-between gap-2 mb-4">
+          <span className="text-xs font-mono text-muted tracking-tight">
+            {project.category}
+          </span>
+          <span
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono border ${statusConfig.color}`}
+          >
+            <StatusIcon className="w-3 h-3" aria-hidden="true" />
+            {project.status}
+          </span>
+        </div>
+
+        {/* Visualizer / Interactive Abstract Mockup or Real Media */}
+        <div className="mb-6">
+          {project.media ? (
+            <div className="relative w-full h-44 rounded-xl overflow-hidden border border-border/80 bg-background/80">
+              {project.media.type === "video" ? (
+                <video
+                  src={project.media.src}
+                  poster={project.media.poster}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={project.media.src}
+                  alt={project.media.alt || project.title}
+                  className="w-full h-full object-cover"
+                />
+              )}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent" />
+            </div>
+          ) : (
+            <ProjectVisual project={project} />
+          )}
+        </div>
+
+        {/* Title & Tagline */}
+        <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground group-hover:text-accent transition-colors mb-2">
+          {project.title}
+        </h3>
+        <p className="text-xs sm:text-sm font-medium text-muted mb-3">{project.tagline}</p>
+
+        {/* Co-Author Badge (e.g. Santiago Román) */}
+        {project.coAuthor && (
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.04] border border-border/60 text-xs font-mono text-muted mb-4">
+            <span>Co-desarrollado con</span>
+            <a
+              href={project.coAuthor.linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-accent-sky hover:underline"
+            >
+              <LinkedinIcon className="w-3 h-3 text-accent-sky" aria-hidden="true" />
+              <span className="font-semibold text-foreground">{project.coAuthor.name}</span>
+              <ArrowUpRight className="w-2.5 h-2.5 opacity-60" aria-hidden="true" />
+            </a>
+          </div>
+        )}
+
+        {/* Editorial Problem vs Solution breakdown */}
+        <div className="space-y-2.5 text-xs text-muted leading-relaxed mb-6">
+          <p>
+            <strong className="text-foreground/90 font-semibold font-mono">Problema: </strong>
+            {project.problem}
+          </p>
+          <p>
+            <strong className="text-accent font-semibold font-mono">Solución: </strong>
+            {project.solution}
+          </p>
+          {project.metrics && (
+            <div className="inline-block px-3 py-1.5 rounded-lg bg-background/80 border border-border text-foreground font-mono text-[11px]">
+              {project.metrics}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Card Footer: Tech tags & Links */}
+      <div className="pt-4 border-t border-border/60">
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className="px-2.5 py-1 rounded-md bg-background text-[11px] font-mono text-muted border border-border/50"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <div className="flex items-center justify-between">
+          {project.repoStatus === "coming_soon" ? (
+            <div className="inline-flex items-center gap-1.5 text-xs font-mono text-muted/70 bg-white/[0.03] px-2.5 py-1 rounded-md border border-border/40">
+              <GithubIcon className="w-3.5 h-3.5 opacity-40" aria-hidden="true" />
+              <span>Repo en preparación</span>
+            </div>
+          ) : project.repoStatus === "private" ? (
+            <div className="inline-flex items-center gap-1.5 text-xs font-mono text-muted/70 bg-white/[0.03] px-2.5 py-1 rounded-md border border-border/40">
+              <GithubIcon className="w-3.5 h-3.5 opacity-40" aria-hidden="true" />
+              <span>Código privado</span>
+            </div>
+          ) : project.githubUrl ? (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-mono text-muted hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            >
+              <GithubIcon className="w-3.5 h-3.5" aria-hidden="true" />
+              <span>Ver código</span>
+              <ArrowUpRight className="w-3 h-3 opacity-60" aria-hidden="true" />
+            </a>
+          ) : null}
+        </div>
+      </div>
+    </article>
+  );
+}
+
+const KANBAN_STAGES: {
+  status: Project["status"];
+  id: string;
+  title: string;
+  description: string;
+  badgeClass: string;
+  icon: typeof CheckCircle2;
+}[] = [
+  {
+    status: "En producción",
+    id: "col-produccion",
+    title: "En Producción",
+    description: "Sistemas estables, operativos y verificados",
+    badgeClass: "text-accent border-accent/30 bg-accent/10",
+    icon: CheckCircle2,
+  },
+  {
+    status: "En desarrollo",
+    id: "col-desarrollo",
+    title: "En Desarrollo Activo",
+    description: "Iteración técnica continua y nuevas características",
+    badgeClass: "text-accent-sky border-accent-sky/30 bg-accent-sky/10",
+    icon: Clock,
+  },
+  {
+    status: "Prototipo",
+    id: "col-prototipo",
+    title: "Laboratorio & Prototipos",
+    description: "Pruebas de concepto, exploración e inclusión",
+    badgeClass: "text-amber-400 border-amber-400/30 bg-amber-400/10",
+    icon: Wrench,
+  },
+];
+
+export function BentoProjects() {
+  const [viewMode, setViewMode] = useState<"bento" | "kanban">("bento");
+  const [selectedCategory, setSelectedCategory] = useState<"Todos" | ProjectCategory>("Todos");
+  const [activeMobileCol, setActiveMobileCol] = useState<string>("col-produccion");
+
+  const filteredProjects =
+    selectedCategory === "Todos"
+      ? portfolioData.projects
+      : portfolioData.projects.filter((p) => p.category === selectedCategory);
+
+  const scrollMobileCol = (colId: string) => {
+    setActiveMobileCol(colId);
+    const element = document.getElementById(colId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    }
+  };
+
   return (
     <section id="proyectos" className="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto scroll-mt-20">
       {/* Section Header */}
-      <div className="flex flex-col items-center text-center mb-12">
+      <div className="flex flex-col items-center text-center mb-8">
         <span className="text-xs font-mono uppercase tracking-wider text-accent mb-2">
           Portafolio de Soluciones
         </span>
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
           Proyectos & Herramientas
         </h2>
-        <p className="text-muted max-w-xl text-sm sm:text-base">
+        <p className="text-muted max-w-xl text-sm sm:text-base mb-8">
           Software construido para resolver fricciones reales en video, automatización y desarrollo digital.
         </p>
 
-        {/* Category Filters with layoutId */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mt-8 p-1.5 rounded-full bg-surface border border-border">
-          {portfolioData.categories.map((cat) => {
-            const isSelected = selectedCategory === cat;
-            return (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setSelectedCategory(cat)}
-                className={`relative px-4 py-1.5 text-xs font-medium rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
-                  isSelected ? "text-foreground font-semibold" : "text-muted hover:text-foreground"
-                }`}
-              >
-                {isSelected && (
-                  <motion.div
-                    layoutId="categoryPill"
-                    className="absolute inset-0 rounded-full bg-white/[0.08] border border-border"
-                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">{cat}</span>
-              </button>
-            );
-          })}
+        {/* View Mode Switcher: Bento vs Kanban */}
+        <div className="inline-flex items-center p-1 rounded-2xl bg-surface border border-border mb-6">
+          <button
+            type="button"
+            onClick={() => setViewMode("bento")}
+            aria-label="Ver proyectos en grilla Bento"
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+              viewMode === "bento"
+                ? "bg-white/[0.08] text-foreground font-semibold shadow-sm border border-border"
+                : "text-muted hover:text-foreground"
+            }`}
+          >
+            <LayoutGrid className="w-3.5 h-3.5" aria-hidden="true" />
+            <span>Grilla Bento</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setViewMode("kanban")}
+            aria-label="Ver proyectos en pipeline Kanban por ciclo de vida"
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+              viewMode === "kanban"
+                ? "bg-white/[0.08] text-foreground font-semibold shadow-sm border border-border"
+                : "text-muted hover:text-foreground"
+            }`}
+          >
+            <KanbanIcon className="w-3.5 h-3.5" aria-hidden="true" />
+            <span>Pipeline Kanban</span>
+          </button>
         </div>
+
+        {/* Category Filters (Bento Mode) */}
+        {viewMode === "bento" && (
+          <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-full bg-surface border border-border">
+            {portfolioData.categories.map((cat) => {
+              const isSelected = selectedCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`relative px-4 py-1.5 text-xs font-medium rounded-full transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                    isSelected ? "text-foreground font-semibold" : "text-muted hover:text-foreground"
+                  }`}
+                >
+                  {isSelected && (
+                    <motion.div
+                      layoutId="categoryPill"
+                      className="absolute inset-0 rounded-full bg-white/[0.08] border border-border"
+                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10">{cat}</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Mobile Quick Column Selector Tabs (Kanban Mode) */}
+        {viewMode === "kanban" && (
+          <div className="flex md:hidden items-center justify-center gap-1.5 p-1 rounded-2xl bg-surface border border-border w-full max-w-sm overflow-x-auto">
+            {KANBAN_STAGES.map((col) => {
+              const count = portfolioData.projects.filter((p) => p.status === col.status).length;
+              const isActive = activeMobileCol === col.id;
+              return (
+                <button
+                  key={col.id}
+                  type="button"
+                  onClick={() => scrollMobileCol(col.id)}
+                  className={`flex-1 py-1.5 px-2.5 rounded-xl text-[11px] font-mono transition-colors whitespace-nowrap cursor-pointer ${
+                    isActive
+                      ? "bg-white/[0.08] text-foreground font-semibold border border-border"
+                      : "text-muted hover:text-foreground"
+                  }`}
+                >
+                  <span>{col.title.split(" ")[1] || col.title}</span>
+                  <span className="ml-1 opacity-60">({count})</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
 
-      {/* Bento Grid */}
-      <motion.div layout className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <AnimatePresence mode="popLayout">
-          {filteredProjects.map((project) => {
-            const statusConfig = getStatusBadge(project.status);
-            const StatusIcon = statusConfig.icon;
-
-            return (
-              <motion.article
+      {/* VIEW 1: BENTO GRID */}
+      {viewMode === "bento" && (
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project) => (
+              <motion.div
                 key={project.id}
                 layout
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
                 transition={{ duration: 0.3 }}
-                className={`group relative flex flex-col justify-between p-6 rounded-2xl bg-surface border border-border hover:border-border-hover transition-all duration-300 hover:shadow-[0_12px_40px_rgba(0,0,0,0.45)] hover:-translate-y-0.5 ${
-                  project.span === "md:col-span-2" ? "md:col-span-2" : "md:col-span-1"
-                }`}
+                className={project.span === "md:col-span-2" ? "md:col-span-2" : "md:col-span-1"}
               >
-                {/* Card Top: Badges & Category */}
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-4">
-                    <span className="text-xs font-mono text-muted tracking-tight">
-                      {project.category}
-                    </span>
-                    <span
-                      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono border ${statusConfig.color}`}
-                    >
-                      <StatusIcon className="w-3 h-3" aria-hidden="true" />
-                      {project.status}
-                    </span>
-                  </div>
+                <ProjectCard project={project} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      )}
 
-                  {/* Visualizer / Interactive Abstract Mockup or Real Media */}
-                  <div className="mb-6">
-                    {project.media ? (
-                      <div className="relative w-full h-44 rounded-xl overflow-hidden border border-border/80 bg-background/80">
-                        {project.media.type === "video" ? (
-                          <video
-                            src={project.media.src}
-                            poster={project.media.poster}
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            className="w-full h-full object-cover"
-                          />
-                        ) : (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            src={project.media.src}
-                            alt={project.media.alt || project.title}
-                            className="w-full h-full object-cover"
-                          />
-                        )}
-                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent" />
+      {/* VIEW 2: KANBAN PIPELINE */}
+      {viewMode === "kanban" && (
+        <div className="relative">
+          {/* Helper hint for mobile horizontal swipe */}
+          <div className="md:hidden text-center text-xs font-mono text-muted-dark mb-3">
+            Desliza horizontalmente para explorar las fases del ciclo de vida
+          </div>
+
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-6 -mx-4 px-4 scrollbar-none md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:mx-0 md:px-0 items-start">
+            {KANBAN_STAGES.map((col) => {
+              const stageProjects = portfolioData.projects.filter((p) => p.status === col.status);
+              const ColIcon = col.icon;
+
+              return (
+                <section
+                  key={col.id}
+                  id={col.id}
+                  className="w-[86vw] sm:w-[350px] shrink-0 snap-center md:w-auto flex flex-col p-4 sm:p-5 rounded-3xl bg-surface/35 border border-border/60"
+                >
+                  {/* Column Header */}
+                  <div className="pb-4 mb-4 border-b border-border/50">
+                    <div className="flex items-center justify-between gap-2 mb-1.5">
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-mono font-medium border ${col.badgeClass}`}
+                        >
+                          <ColIcon className="w-3.5 h-3.5" aria-hidden="true" />
+                          <span>{col.title}</span>
+                        </span>
                       </div>
-                    ) : (
-                      <ProjectVisual project={project} />
-                    )}
-                  </div>
-
-                  {/* Title & Tagline */}
-                  <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground group-hover:text-accent transition-colors mb-2">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm font-medium text-muted mb-3">{project.tagline}</p>
-
-                  {/* Co-Author Badge (e.g. Santiago Román) */}
-                  {project.coAuthor && (
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.04] border border-border/60 text-xs font-mono text-muted mb-4">
-                      <span>Co-desarrollado con</span>
-                      <a
-                        href={project.coAuthor.linkedinUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-accent-sky hover:underline"
-                      >
-                        <LinkedinIcon className="w-3 h-3 text-accent-sky" aria-hidden="true" />
-                        <span className="font-semibold text-foreground">{project.coAuthor.name}</span>
-                        <ArrowUpRight className="w-2.5 h-2.5 opacity-60" aria-hidden="true" />
-                      </a>
-                    </div>
-                  )}
-
-                  {/* Editorial Problem vs Solution breakdown */}
-                  <div className="space-y-2.5 text-xs text-muted leading-relaxed mb-6">
-                    <p>
-                      <strong className="text-foreground/90 font-semibold font-mono">Problema: </strong>
-                      {project.problem}
-                    </p>
-                    <p>
-                      <strong className="text-accent font-semibold font-mono">Solución: </strong>
-                      {project.solution}
-                    </p>
-                    {project.metrics && (
-                      <div className="inline-block px-3 py-1.5 rounded-lg bg-background/80 border border-border text-foreground font-mono text-[11px]">
-                        {project.metrics}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Card Footer: Tech tags & Links */}
-                <div className="pt-4 border-t border-border/60">
-                  <div className="flex flex-wrap gap-1.5 mb-4">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2.5 py-1 rounded-md bg-background text-[11px] font-mono text-muted border border-border/50"
-                      >
-                        {tag}
+                      <span className="px-2 py-0.5 rounded-md bg-background border border-border/80 text-xs font-mono text-muted">
+                        {stageProjects.length}
                       </span>
+                    </div>
+                    <p className="text-[11px] font-mono text-muted-dark">
+                      {col.description}
+                    </p>
+                  </div>
+
+                  {/* Column Cards Stack */}
+                  <div className="flex flex-col gap-4">
+                    {stageProjects.map((project) => (
+                      <ProjectCard
+                        key={project.id}
+                        project={project}
+                        isKanbanCard={true}
+                      />
                     ))}
                   </div>
-
-                  <div className="flex items-center justify-between">
-                    {project.repoStatus === "coming_soon" ? (
-                      <div className="inline-flex items-center gap-1.5 text-xs font-mono text-muted/70 bg-white/[0.03] px-2.5 py-1 rounded-md border border-border/40">
-                        <GithubIcon className="w-3.5 h-3.5 opacity-40" aria-hidden="true" />
-                        <span>Repo en preparación</span>
-                      </div>
-                    ) : project.repoStatus === "private" ? (
-                      <div className="inline-flex items-center gap-1.5 text-xs font-mono text-muted/70 bg-white/[0.03] px-2.5 py-1 rounded-md border border-border/40">
-                        <GithubIcon className="w-3.5 h-3.5 opacity-40" aria-hidden="true" />
-                        <span>Código privado</span>
-                      </div>
-                    ) : project.githubUrl ? (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-mono text-muted hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                      >
-                        <GithubIcon className="w-3.5 h-3.5" aria-hidden="true" />
-                        <span>Ver código</span>
-                        <ArrowUpRight className="w-3 h-3 opacity-60" aria-hidden="true" />
-                      </a>
-                    ) : null}
-                  </div>
-                </div>
-              </motion.article>
-            );
-          })}
-        </AnimatePresence>
-      </motion.div>
+                </section>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </section>
   );
 }

@@ -1,9 +1,14 @@
-import Link from "next/link";
+"use client";
+
 import { ArrowUp } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 
 export function Footer() {
   const { profile } = portfolioData;
+
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <footer className="w-full border-t border-border/40 py-12 px-4 sm:px-6 lg:px-8 mt-12 bg-background">
@@ -19,14 +24,15 @@ export function Footer() {
 
         {/* Right back to top button */}
         <div className="flex items-center gap-4">
-          <Link
-            href="/"
-            aria-label="Volver al inicio de la página"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface border border-border hover:border-border-hover hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          <button
+            type="button"
+            onClick={handleScrollToTop}
+            aria-label="Volver arriba al inicio de la página"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface border border-border hover:border-border-hover text-muted hover:text-foreground transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
             <span>Volver arriba</span>
             <ArrowUp className="w-3.5 h-3.5" aria-hidden="true" />
-          </Link>
+          </button>
         </div>
       </div>
     </footer>
