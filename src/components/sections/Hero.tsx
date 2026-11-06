@@ -3,12 +3,14 @@
 import { useState } from "react";
 import { type Variants, motion } from "motion/react";
 import { toast } from "sonner";
-import { Copy, Check, ArrowDown, FileText, Sparkles, Terminal } from "lucide-react";
+import { Copy, Check, ArrowDown, FileText, Sparkles, Terminal, Share2 } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
+import { ShareModal } from "@/components/ui/ShareModal";
 
 export function Hero() {
   const { profile } = portfolioData;
   const [copied, setCopied] = useState(false);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
 
   const handleCopyEmail = async () => {
     try {
@@ -82,15 +84,15 @@ export function Hero() {
 
         {/* Editorial Portrait Card */}
         {profile.avatarUrl && (
-          <motion.div variants={itemVariants} className="mb-6">
-            <div className="relative group w-24 h-28 sm:w-28 sm:h-32 rounded-2xl p-1 bg-gradient-to-b from-white/12 via-surface to-surface border border-border/80 hover:border-accent/40 shadow-[0_12px_36px_rgba(0,0,0,0.6)] overflow-hidden mx-auto transition-all duration-300">
+          <motion.div variants={itemVariants} className="mb-8">
+            <div className="relative group w-36 h-44 sm:w-44 sm:h-52 md:w-48 md:h-56 rounded-3xl p-1.5 bg-gradient-to-b from-white/15 via-surface to-surface border border-border/80 hover:border-accent/40 shadow-[0_16px_48px_rgba(0,0,0,0.65)] overflow-hidden mx-auto transition-all duration-300 hover:scale-[1.02]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={profile.avatarUrl}
                 alt={profile.name}
-                className="w-full h-full rounded-xl object-cover grayscale contrast-105 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                className="w-full h-full rounded-[22px] object-cover grayscale contrast-105 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
               />
-              <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10" />
+              <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10" />
             </div>
           </motion.div>
         )}
@@ -160,6 +162,17 @@ export function Hero() {
             <span>Descargar CV</span>
           </a>
 
+          {/* Share Profile Action */}
+          <button
+            type="button"
+            onClick={() => setShareModalOpen(true)}
+            aria-label="Compartir portafolio profesional"
+            className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-surface hover:bg-surface-hover border border-border hover:border-border-hover text-foreground font-medium text-sm transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          >
+            <Share2 className="w-4 h-4 text-muted group-hover:text-foreground" aria-hidden="true" />
+            <span>Compartir</span>
+          </button>
+
           {/* Copy Email Fast Action */}
           <button
             type="button"
@@ -200,6 +213,9 @@ export function Hero() {
           </div>
         </motion.div>
       </motion.div>
+
+      {/* Share Profile Modal Dialog */}
+      <ShareModal isOpen={shareModalOpen} onClose={() => setShareModalOpen(false)} />
     </section>
   );
 }

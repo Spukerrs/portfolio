@@ -5,6 +5,7 @@ import { Collaborations } from "@/components/sections/Collaborations";
 import { StackAndWorkflow } from "@/components/sections/StackAndWorkflow";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/layout/Footer";
+import { ScrollToTop } from "@/components/ui/ScrollToTop";
 
 export default function Home() {
   return (
@@ -17,7 +18,7 @@ export default function Home() {
         {/* Hero Presentation */}
         <Hero />
 
-        {/* Bento Grid with Filterable Projects */}
+        {/* Pipeline & Filterable Projects */}
         <BentoProjects />
 
         {/* Collaborations, Alliances & Real Impact */}
@@ -32,6 +33,9 @@ export default function Home() {
 
       {/* Minimalist Footer */}
       <Footer />
+
+      {/* Floating Back to Top Button */}
+      <ScrollToTop />
     </div>
   );
 }

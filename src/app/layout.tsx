@@ -51,6 +51,14 @@ export const metadata: Metadata = {
     description:
       "Transformo problemas reales en software funcional, herramientas de automatización y flujos audiovisuales combinando arquitectura de producto e inteligencia artificial.",
     siteName: "Shair Cuello Portfolio",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Shair Fernando Cuello López — AI Product Builder & Creative Technologist",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -58,10 +66,18 @@ export const metadata: Metadata = {
     description:
       "Transformo problemas reales en software funcional, herramientas de automatización y flujos audiovisuales combinando arquitectura de producto e inteligencia artificial.",
     creator: "@spukerrs",
+    images: ["/opengraph-image.png"],
   },
   robots: {
     index: true,
     follow: true,
+  },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    shortcut: "/favicon.ico",
   },
 };
 

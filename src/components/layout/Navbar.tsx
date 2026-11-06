@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X, ArrowUpRight, Share2 } from "lucide-react";
 import { GithubIcon } from "@/components/ui/BrandIcons";
 import { portfolioData } from "@/data/portfolio";
+import { ShareModal } from "@/components/ui/ShareModal";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
   const github = portfolioData.profile.socials.find((s) => s.icon === "github");
 
   const navLinks = [
@@ -46,8 +48,18 @@ export function Navbar() {
           ))}
         </div>
 
-        {/* Right action button */}
-        <div className="hidden md:flex items-center gap-3">
+        {/* Right action buttons */}
+        <div className="hidden md:flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setShareModalOpen(true)}
+            aria-label="Compartir enlace del portafolio"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono text-muted hover:text-foreground bg-surface hover:bg-surface-hover border border-border hover:border-border-hover rounded-full transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          >
+            <Share2 className="w-3.5 h-3.5 text-accent-sky" aria-hidden="true" />
+            <span>Compartir</span>
+          </button>
+
           {github && (
             <a
               href={github.url}
@@ -92,12 +104,28 @@ export function Navbar() {
               {link.name}
             </Link>
           ))}
+          {/* Mobile Share Action */}
+          <button
+            type="button"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              setShareModalOpen(true);
+            }}
+            className="flex items-center justify-between px-4 py-2.5 mt-2 rounded-lg text-xs font-mono text-foreground bg-white/[0.04] border border-border cursor-pointer text-left"
+          >
+            <span className="flex items-center gap-2">
+              <Share2 className="w-4 h-4 text-accent-sky" aria-hidden="true" />
+              Compartir portafolio
+            </span>
+            <span className="text-[10px] text-muted">Tarjeta</span>
+          </button>
+
           {github && (
             <a
               href={github.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-between px-4 py-2.5 mt-2 rounded-lg text-xs font-mono text-foreground bg-white/[0.04] border border-border"
+              className="flex items-center justify-between px-4 py-2.5 rounded-lg text-xs font-mono text-foreground bg-white/[0.04] border border-border"
             >
               <span className="flex items-center gap-2">
                 <GithubIcon className="w-4 h-4" aria-hidden="true" />
@@ -108,6 +136,9 @@ export function Navbar() {
           )}
         </div>
       )}
+
+      {/* Share Profile Modal Dialog */}
+      <ShareModal isOpen={shareModalOpen} onClose={() => setShareModalOpen(false)} />
     </header>
   );
 }
