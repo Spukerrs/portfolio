@@ -33,6 +33,7 @@ graph TD
     
     subgraph Arquitectura ["Arquitectura & Diseño"]
         DIS["[[Arquitectura/Sistema de Diseño|Sistema de Diseño (Dark Editorial)]]"]
+        ANI["[[Arquitectura/Coreografia de Entrada y Microinteracciones|Coreografía de Entrada & Preloader]]"]
     end
     
     subgraph Proyectos ["Ingeniería de Software & Apps"]
@@ -50,6 +51,7 @@ graph TD
     end
     
     MOC --> DIS
+    MOC --> ANI
     MOC --> DVC
     MOC --> JBR
     MOC --> BIT
@@ -78,6 +80,11 @@ Fundamentos estructurales y visuales que rigen la interfaz del portfolio bajo la
 * **[[Arquitectura/Filosofia y Manifiesto|Manifiesto Profesional: Seguridad, Auditoría y Vocación de Ayudar]]**
   * *Postura frente al "Vibecoding":* La IA como multiplicador, pero siempre con auditoría humana, pruebas exhaustivas y seguridad antes de entregar.
   * *Prioridad máxima:* La satisfacción del cliente y la resolución empática de problemas reales.
+
+* **[[Arquitectura/Coreografia de Entrada y Microinteracciones|Coreografía de Entrada: Preloader, Navbar y Desvelo Diagonal]]**
+  * *Pantalla de Carga Previa:* Icono terminal SVG (favicon) con progreso orgánico, giro de 360 grados y disolución suave.
+  * *Orquestación Desacoplada:* Coordinación de entrada para Navbar y Hero mediante canal de eventos nativo `portfolio:ready`.
+  * *Escritura y Desvelo:* Tipeo continuo en H1 y desvelo por máscara a 135 grados con barrido de haz de luz en el manifiesto, culminando con cursor parpadeante persistente.
 
 ---
 

@@ -6,10 +6,14 @@ import { StackAndWorkflow } from "@/components/sections/StackAndWorkflow";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
+import { Preloader } from "@/components/ui/Preloader";
 
 export default function Home() {
   return (
     <div className="relative min-h-screen flex flex-col justify-between selection:bg-accent/25 selection:text-foreground">
+      {/* System Entrance Preloader with Favicon Terminal Spin */}
+      <Preloader />
+
       {/* Floating Centered Navbar */}
       <Navbar />
 

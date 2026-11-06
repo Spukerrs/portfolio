@@ -95,3 +95,84 @@ body {
   }
 }
 
+/* Terminal typing cursor blinking animation */
+@keyframes cursorBlink {
+  0%, 48% {
+    opacity: 1;
+  }
+  50%, 98% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-cursor-blink {
+  animation: cursorBlink 0.9s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-cursor-blink {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* Diagonal reveal mask from top-left to bottom-right */
+.diagonal-reveal-mask {
+  -webkit-mask-image: linear-gradient(135deg, #000 45%, rgba(0, 0, 0, 0.3) 50%, transparent 55%);
+  mask-image: linear-gradient(135deg, #000 45%, rgba(0, 0, 0, 0.3) 50%, transparent 55%);
+  -webkit-mask-size: 300% 300%;
+  mask-size: 300% 300%;
+  -webkit-mask-position: 100% 100%;
+  mask-position: 100% 100%;
+  opacity: 0;
+  transition:
+    -webkit-mask-position 950ms cubic-bezier(0.16, 1, 0.3, 1),
+    mask-position 950ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 350ms ease;
+}
+
+.diagonal-reveal-mask.revealed {
+  -webkit-mask-position: 0% 0%;
+  mask-position: 0% 0%;
+  opacity: 1;
+}
+
+/* Diagonal shine beam sweep */
+@keyframes diagonalShineSweep {
+  0% {
+    transform: translate3d(-100%, -100%, 0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(100%, 100%, 0);
+    opacity: 0;
+  }
+}
+
+.animate-diagonal-shine {
+  animation: diagonalShineSweep 950ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .diagonal-reveal-mask {
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+  .animate-diagonal-shine {
+    display: none !important;
+  }
+}
+
+
+

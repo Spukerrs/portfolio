@@ -1,16 +1,108 @@
 "use client";
 
-import { useState } from "react";
-import { type Variants, motion } from "motion/react";
+import { useState, useEffect, useCallback } from "react";
+import { type Variants, motion, useReducedMotion } from "motion/react";
 import { toast } from "sonner";
 import { Copy, Check, ArrowDown, FileText, Sparkles, Terminal, Share2 } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 import { ShareModal } from "@/components/ui/ShareModal";
 
+const TITLE_PART_1 = "AI Product Builder & ";
+const TITLE_PART_2 = "Creative Technologist";
+const FULL_TITLE = `${TITLE_PART_1}${TITLE_PART_2}`;
+
+type TypingPhase = "idle" | "typing-title" | "revealing-pitch" | "done";
+
 export function Hero() {
   const { profile } = portfolioData;
+  const FULL_PITCH = profile.pitch;
+  const shouldReduceMotion = useReducedMotion();
+
   const [copied, setCopied] = useState(false);
   const [shareModalOpen, setShareModalOpen] = useState(false);
+
+  const isReduced = Boolean(shouldReduceMotion);
+
+  const [phase, setPhase] = useState<TypingPhase>("idle");
+  const [titleCharCount, setTitleCharCount] = useState<number>(0);
+
+  const activePhase = isReduced ? "done" : phase;
+  const activeTitleCount = isReduced ? FULL_TITLE.length : titleCharCount;
+  const isPitchRevealed = activePhase === "revealing-pitch" || activePhase === "done";
+
+  const handleSkipAnimation = useCallback(() => {
+    if (activePhase !== "done") {
+      setTitleCharCount(FULL_TITLE.length);
+      setPhase("done");
+    }
+  }, [activePhase]);
+
+  // Synchronize start with preloader dismissal or fallback timeout
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+
+    let started = false;
+    const startTitleTyping = () => {
+      if (started) return;
+      started = true;
+      setPhase("typing-title");
+    };
+
+    window.addEventListener("portfolio:ready", startTitleTyping);
+
+    // Fallback timer if event already fired or preloader was skipped
+    const fallbackTimer = setTimeout(startTitleTyping, 1400);
+
+    return () => {
+      window.removeEventListener("portfolio:ready", startTitleTyping);
+      clearTimeout(fallbackTimer);
+    };
+  }, [shouldReduceMotion]);
+
+  // Title typing stream
+  useEffect(() => {
+    if (phase !== "typing-title") return;
+
+    if (titleCharCount < FULL_TITLE.length) {
+      const char = FULL_TITLE[titleCharCount];
+      let delay = 22;
+      if (char === " ") delay = 28;
+      if (char === "&") delay = 45;
+
+      const timeout = setTimeout(() => {
+        setTitleCharCount((prev) => prev + 1);
+      }, delay);
+      return () => clearTimeout(timeout);
+    } else {
+      // Title complete: pause 120ms then trigger pitch diagonal shine sweep
+      const timeout = setTimeout(() => {
+        setPhase("revealing-pitch");
+      }, 120);
+      return () => clearTimeout(timeout);
+    }
+  }, [phase, titleCharCount]);
+
+  // Pitch reveal timer: transition from revealing to done once diagonal shine sweep finishes
+  useEffect(() => {
+    if (phase !== "revealing-pitch") return;
+
+    const timeout = setTimeout(() => {
+      setPhase("done");
+    }, 950);
+    return () => clearTimeout(timeout);
+  }, [phase]);
+
+  const part1Length = TITLE_PART_1.length;
+  const part1VisibleCount = Math.min(activeTitleCount, part1Length);
+  const part1Visible = TITLE_PART_1.slice(0, part1VisibleCount);
+  const part1Hidden = TITLE_PART_1.slice(part1VisibleCount);
+
+  const part2Count = Math.max(0, activeTitleCount - part1Length);
+  const part2Visible = TITLE_PART_2.slice(0, part2Count);
+  const part2Hidden = TITLE_PART_2.slice(part2Count);
+
+  const showPart1Cursor = activePhase === "typing-title" && activeTitleCount <= part1Length;
+  const showPart2Cursor = activePhase === "typing-title" && activeTitleCount > part1Length;
 
   const handleCopyEmail = async () => {
     try {
@@ -54,6 +146,16 @@ export function Hero() {
       aria-label="Presentación principal"
       className="relative min-h-[90vh] flex flex-col justify-center items-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto"
     >
+      <noscript>
+        <style>{`
+          .typewriter-hidden {
+            opacity: 1 !important;
+            user-select: text !important;
+            pointer-events: auto !important;
+          }
+        `}</style>
+      </noscript>
+
       {/* Background technical grid pattern */}
       <div
         className="pointer-events-none absolute inset-0 -z-10 opacity-[0.03]"
@@ -104,24 +206,68 @@ export function Hero() {
           </span>
         </motion.div>
 
-        {/* Main Title (Editorial hierarchy) */}
+        {/* Main Title (Editorial hierarchy with typewriter animation) */}
         <motion.h1
           variants={itemVariants}
-          className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground leading-[1.08] mb-6"
+          onClick={handleSkipAnimation}
+          title={phase !== "done" ? "Haz clic para completar la escritura" : undefined}
+          className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground leading-[1.08] mb-6 select-text cursor-default"
         >
-          AI Product Builder &{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground to-muted">
-            Creative Technologist
+          <span className="sr-only">{FULL_TITLE}</span>
+          <span aria-hidden="true">
+            <span>{part1Visible}</span>
+            {showPart1Cursor && (
+              <span className="inline-block w-[3px] sm:w-[4px] md:w-[5px] h-[0.85em] bg-accent align-baseline ml-1 rounded-xs shadow-[0_0_12px_rgba(16,185,129,0.9)] animate-cursor-blink select-none" />
+            )}
+            <span className="opacity-0 select-none pointer-events-none typewriter-hidden">
+              {part1Hidden}
+            </span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground to-muted">
+              {part2Visible}
+            </span>
+            {showPart2Cursor && (
+              <span className="inline-block w-[3px] sm:w-[4px] md:w-[5px] h-[0.85em] bg-accent align-baseline ml-1 rounded-xs shadow-[0_0_12px_rgba(16,185,129,0.9)] animate-cursor-blink select-none" />
+            )}
+            <span className="opacity-0 select-none pointer-events-none typewriter-hidden text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground to-muted">
+              {part2Hidden}
+            </span>
           </span>
         </motion.h1>
 
-        {/* Pitch Statement */}
-        <motion.p
+        {/* Pitch Statement with diagonal reveal from top-left to bottom-right and shine beam */}
+        <motion.div
           variants={itemVariants}
-          className="text-base sm:text-lg md:text-xl text-muted leading-relaxed max-w-2xl mb-6"
+          onClick={handleSkipAnimation}
+          title={activePhase !== "done" ? "Haz clic para completar la revelación" : undefined}
+          className="relative max-w-2xl mb-6 select-text cursor-default p-2 -m-2 rounded-xl"
         >
-          {profile.pitch}
-        </motion.p>
+          {/* Accessible text for screen readers and SEO */}
+          <p className="sr-only">{FULL_PITCH}</p>
+
+          {/* Visual text container with diagonal mask reveal */}
+          <div
+            aria-hidden="true"
+            className={`text-base sm:text-lg md:text-xl text-muted leading-relaxed diagonal-reveal-mask ${
+              isPitchRevealed ? "revealed" : ""
+            }`}
+          >
+            <span>{FULL_PITCH}</span>
+            {/* Persistent blinking typing cursor at the end */}
+            {isPitchRevealed && (
+              <span className="inline-block w-[2px] sm:w-[2.5px] h-[1.15em] bg-accent align-[-0.15em] ml-1 rounded-xs shadow-[0_0_8px_rgba(16,185,129,0.85)] animate-cursor-blink select-none" />
+            )}
+          </div>
+
+          {/* Diagonal luminous shine beam sweeping from top-left to bottom-right */}
+          {activePhase === "revealing-pitch" && (
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl"
+            >
+              <div className="absolute w-[220%] h-[220%] -top-[60%] -left-[60%] bg-[linear-gradient(135deg,transparent_42%,rgba(16,185,129,0.3)_47%,rgba(255,255,255,0.85)_50%,rgba(16,185,129,0.35)_53%,transparent_58%)] animate-diagonal-shine" />
+            </div>
+          )}
+        </motion.div>
 
         {/* Introductory Personal Philosophy Callout */}
         <motion.div
