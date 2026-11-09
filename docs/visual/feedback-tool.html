@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Herramienta Interactiva de Feedback | Obsidian Custom Frames</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              bg: '#090a0f',
+              surface: '#11131a',
+              card: '#161822',
+              border: '#27272a',
+              accent: '#10b981'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #090a0f;
+      color: #f4f4f5;
+      font-size: 13px;
+    }
+    input[type=range] {
+      accent-color: #10b981;
+    }
+  </style>
+</head>
+<body class="p-3 sm:p-5 flex flex-col min-h-screen">
+
+  <!-- Sidebar Header -->
+  <header class="border-b border-neutral-800 pb-3 mb-4">
+    <div class="flex items-center justify-between mb-1">
+      <div class="flex items-center gap-1.5 text-xs font-mono text-emerald-400">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        CUSTOM FRAMES FEEDBACK
+      </div>
+      <span class="text-[10px] font-mono text-neutral-500">v1.1</span>
+    </div>
+    <h1 class="text-base font-bold text-white flex items-center gap-2">
+      <i data-lucide="sliders-horizontal" class="w-4 h-4 text-emerald-400"></i>
+      Panel de Control para Antigravity
+    </h1>
+    <p class="text-[11px] text-neutral-400 mt-0.5">
+      Toma decisiones y presiona el botón inferior para copiar el payload listo para pegar en el chat.
+    </p>
+  </header>
+
+  <!-- Form Controls -->
+  <main class="space-y-4 flex-1 pb-20">
+
+    <!-- Section 1: Architecture Decisions -->
+    <div class="p-3.5 rounded-xl bg-neutral-900/60 border border-neutral-800 space-y-2.5">
+      <div class="flex items-center justify-between text-xs font-semibold text-neutral-200">
+        <span class="flex items-center gap-1.5">
+          <i data-lucide="layout-grid" class="w-3.5 h-3.5 text-cyan-400"></i>
+          Disposición de Proyectos
+        </span>
+      </div>
+
+      <div class="space-y-1.5 text-xs">
+        <label class="flex items-center gap-2 p-2 rounded-lg bg-neutral-950 border border-neutral-800/80 cursor-pointer hover:border-emerald-500/40">
+          <input type="radio" name="shelfOption" value="Option_A_Horizontal_Shelf" checked class="text-emerald-500">
+          <div class="flex-1">
+            <span class="font-medium text-white">Opción A: Horizontal Shelf</span>
+            <span class="block text-[10px] text-neutral-400">Carrusel con drag-to-scroll y contador (Actual)</span>
+          </div>
+        </label>
+
+        <label class="flex items-center gap-2 p-2 rounded-lg bg-neutral-950 border border-neutral-800/80 cursor-pointer hover:border-emerald-500/40">
+          <input type="radio" name="shelfOption" value="Option_B_Bento_Matrix" class="text-emerald-500">
+          <div class="flex-1">
+            <span class="font-medium text-white">Opción B: Bento Matrix 2x2</span>
+            <span class="block text-[10px] text-neutral-400">Todas las tarjetas visibles en pantalla completa</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Section 2: Motion & Preloader -->
+    <div class="p-3.5 rounded-xl bg-neutral-900/60 border border-neutral-800 space-y-3">
+      <div class="text-xs font-semibold text-neutral-200 flex items-center gap-1.5">
+        <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
+        Ajustes de Preloader & Motion
+      </div>
+
+      <div>
+        <div class="flex justify-between text-[11px] text-neutral-400 mb-1">
+          <span>Duración Preloader:</span>
+          <span id="speedLabel" class="font-mono text-emerald-400">2.0 seg</span>
+        </div>
+        <input type="range" id="preloaderSpeed" min="0" max="3" step="0.5" value="2.0" class="w-full h-1.5 bg-neutral-800 rounded-lg cursor-pointer" oninput="updateSpeedLabel(this.value)">
+      </div>
+
+      <div class="grid grid-cols-2 gap-2 text-xs">
+        <label class="flex items-center gap-2 p-2 rounded-lg bg-neutral-950 border border-neutral-800 cursor-pointer">
+          <input type="checkbox" id="spinFavicon" checked class="rounded text-emerald-500">
+          <span class="text-[11px] text-neutral-300">Favicon 360°</span>
+        </label>
+        <label class="flex items-center gap-2 p-2 rounded-lg bg-neutral-950 border border-neutral-800 cursor-pointer">
+          <input type="checkbox" id="manifestoReveal" checked class="rounded text-emerald-500">
+          <span class="text-[11px] text-neutral-300">Manifiesto</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Section 3: Next Step / Sprint Priority -->
+    <div class="p-3.5 rounded-xl bg-neutral-900/60 border border-neutral-800 space-y-2">
+      <div class="text-xs font-semibold text-neutral-200 flex items-center gap-1.5">
+        <i data-lucide="target" class="w-3.5 h-3.5 text-purple-400"></i>
+        Próxima Prioridad de Sprint
+      </div>
+
+      <select id="sprintFocus" class="w-full text-xs font-mono bg-neutral-950 border border-neutral-800 rounded-lg p-2 text-white focus:outline-none focus:border-emerald-500">
+        <option value="video_demos_integration" selected>1. Integrar videos reales de DaVinci & Saver</option>
+        <option value="micro_cms_sqlite">2. Micro-CMS local SQLite vía Obsidian</option>
+        <option value="dynamic_project_pages">3. Páginas dinámicas /projects/[id]</option>
+        <option value="seo_meta_audit">4. Auditoría exhaustiva SEO y OpenGraph</option>
+      </select>
+    </div>
+
+    <!-- Section 4: Human Notes -->
+    <div class="p-3.5 rounded-xl bg-neutral-900/60 border border-neutral-800 space-y-2">
+      <div class="text-xs font-semibold text-neutral-200 flex items-center gap-1.5">
+        <i data-lucide="message-square" class="w-3.5 h-3.5 text-emerald-400"></i>
+        Instrucciones Adicionales
+      </div>
+      <textarea id="humanNotes" rows="2" placeholder="Escribe aquí notas adicionales para el agente..." class="w-full text-xs bg-neutral-950 border border-neutral-800 rounded-lg p-2 text-white placeholder-neutral-600 focus:outline-none focus:border-emerald-500 resize-none"></textarea>
+    </div>
+
+  </main>
+
+  <!-- Sticky Feedback Bridge Button -->
+  <div class="fixed bottom-0 left-0 right-0 p-3 bg-neutral-950/90 backdrop-blur border-t border-neutral-800 flex justify-center z-40">
+    <button onclick="copyFeedbackPayload()" class="w-full max-w-md py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 active:scale-95 transition-all cursor-pointer">
+      <i data-lucide="clipboard-copy" class="w-4 h-4"></i>
+      <span>📋 Copiar Feedback para el Agente</span>
+    </button>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed top-3 left-3 right-3 hidden bg-emerald-500 text-black px-3.5 py-2 rounded-lg shadow-xl font-bold text-xs items-center gap-2 z-50 transition-all">
+    <i data-lucide="check" class="w-4 h-4"></i>
+    <span>¡Copiado! Presiona Ctrl + V en el chat del agente.</span>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    function updateSpeedLabel(val) {
+      document.getElementById('speedLabel').textContent = val === "0" ? "Desactivado" : val + " seg";
+    }
+
+    function copyFeedbackPayload() {
+      const option = document.querySelector('input[name="shelfOption"]:checked').value;
+      const speed = document.getElementById('preloaderSpeed').value;
+      const spin = document.getElementById('spinFavicon').checked;
+      const manifesto = document.getElementById('manifestoReveal').checked;
+      const focus = document.getElementById('sprintFocus').value;
+      const notes = document.getElementById('humanNotes').value.trim();
+
+      const payload = {
+        accion: "feedback_humano",
+        origen: "Obsidian Custom Frames (docs/visual/feedback-tool.html)",
+        opcion_elegida: option,
+        ajustes: {
+          preloader_duracion_segundos: Number(speed),
+          spin_favicon_activo: spin,
+          manifesto_activo: manifesto,
+          proximo_enfoque_sprint: focus
+        },
+        notas_adicionales: notes || "Sin notas adicionales",
+        timestamp: new Date().toISOString()
+      };
+
+      const formatted = "Aplica las siguientes decisiones tomadas en el HTML:\n```json\n" + JSON.stringify(payload, null, 2) + "\n```";
+
+      navigator.clipboard.writeText(formatted).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.remove('hidden');
+        toast.classList.add('flex');
+        setTimeout(() => {
+          toast.classList.add('hidden');
+          toast.classList.remove('flex');
+        }, 3000);
+      });
+    }
+  </script>
+</body>
+</html>

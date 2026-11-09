@@ -109,3 +109,4 @@ sequenceDiagram
 | **Accesibilidad ARIA** | WCAG AAA | **Conforme** | Textos en `sr-only` y decoraciones en `aria-hidden` |
 | **Preferencia de Movimiento** | Reducción de mareo | **Conforme** | `useReducedMotion` desactiva transiciones |
 | **Errores en Consola** | 0 warnings | **0 warnings / 0 errores** | Lint y compilador TypeScript sin fallas |
+

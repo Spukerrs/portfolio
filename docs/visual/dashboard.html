@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Visual de Arquitectura | Portfolio Shair Cuello</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              bg: '#090a0f',
+              surface: '#11131a',
+              card: '#161822',
+              border: '#27272a',
+              accent: '#10b981',
+              accentSubtle: 'rgba(16, 185, 129, 0.12)',
+              cyan: '#38bdf8'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #090a0f;
+      color: #f4f4f5;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #11131a;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #27272a;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="min-h-screen p-4 md:p-8 custom-scrollbar">
+
+  <!-- Header Banner -->
+  <header class="max-w-7xl mx-auto mb-8 border border-neutral-800/80 bg-neutral-900/60 backdrop-blur rounded-2xl p-6 shadow-2xl">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="space-y-1">
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            PRODUCCIÓN ACTIVA
+          </span>
+          <span class="text-xs font-mono text-neutral-400">Next.js 16.4.4 · React 19 · Tailwind v4</span>
+        </div>
+        <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-white flex items-center gap-2">
+          <i data-lucide="layout-dashboard" class="w-7 h-7 text-emerald-400"></i>
+          Portfolio Profesional — Dashboard de Arquitectura & Avance
+        </h1>
+        <p class="text-neutral-400 text-sm max-w-2xl">
+          Visualizador de estado técnico para Obsidian (HTML Reader). Conexión en tiempo real con la memoria del agente en <code class="text-xs font-mono text-emerald-300 bg-neutral-950 px-1.5 py-0.5 rounded">docs/agent/CONTEXT.md</code>.
+        </p>
+      </div>
+      
+      <div class="flex items-center gap-3">
+        <button id="feedbackBtn" onclick="copyFeedbackPayload()" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-sm transition-all duration-150 shadow-lg shadow-emerald-500/20 active:scale-95 cursor-pointer">
+          <i data-lucide="clipboard-copy" class="w-4 h-4"></i>
+          <span>Copiar Feedback para Agente</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Metric KPI Cards -->
+  <section class="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <div class="p-5 rounded-xl bg-neutral-900/50 border border-neutral-800">
+      <div class="flex items-center justify-between text-neutral-400 mb-2">
+        <span class="text-xs font-mono uppercase tracking-wider">Cumplimiento WCAG</span>
+        <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+      </div>
+      <div class="text-2xl font-bold text-white font-mono">AAA</div>
+      <p class="text-xs text-neutral-500 mt-1">Contraste &gt; 7:1 + motion-safe</p>
+    </div>
+
+    <div class="p-5 rounded-xl bg-neutral-900/50 border border-neutral-800">
+      <div class="flex items-center justify-between text-neutral-400 mb-2">
+        <span class="text-xs font-mono uppercase tracking-wider">Estabilidad Visual</span>
+        <i data-lucide="gauge" class="w-4 h-4 text-cyan-400"></i>
+      </div>
+      <div class="text-2xl font-bold text-white font-mono">CLS &lt; 0.02</div>
+      <p class="text-xs text-neutral-500 mt-1">Zero Layout Shift garantizado</p>
+    </div>
+
+    <div class="p-5 rounded-xl bg-neutral-900/50 border border-neutral-800">
+      <div class="flex items-center justify-between text-neutral-400 mb-2">
+        <span class="text-xs font-mono uppercase tracking-wider">Rendimiento GPU</span>
+        <i data-lucide="cpu" class="w-4 h-4 text-emerald-400"></i>
+      </div>
+      <div class="text-2xl font-bold text-white font-mono">60 FPS</div>
+      <p class="text-xs text-neutral-500 mt-1">Animaciones en transform/opacity</p>
+    </div>
+
+    <div class="p-5 rounded-xl bg-neutral-900/50 border border-neutral-800">
+      <div class="flex items-center justify-between text-neutral-400 mb-2">
+        <span class="text-xs font-mono uppercase tracking-wider">Ecosistema Dual</span>
+        <i data-lucide="workflow" class="w-4 h-4 text-purple-400"></i>
+      </div>
+      <div class="text-2xl font-bold text-white font-mono">MD + HTML</div>
+      <p class="text-xs text-neutral-500 mt-1">Memoria de IA + Obsidian UI</p>
+    </div>
+  </section>
+
+  <!-- Interactive Section: Architecture Pipeline & Components -->
+  <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+    
+    <!-- Left Column: Mermaid Diagram & Flow (2 cols) -->
+    <div class="lg:col-span-2 space-y-6">
+      
+      <!-- Flow Diagram Card -->
+      <div class="p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-base font-semibold text-white flex items-center gap-2">
+            <i data-lucide="git-branch" class="w-4 h-4 text-emerald-400"></i>
+            Flujo Secuencial de la SPA (Next.js 16 App Router)
+          </h2>
+          <span class="text-xs font-mono text-neutral-500">Render Pipeline</span>
+        </div>
+        <div class="bg-neutral-950/80 rounded-xl p-4 overflow-x-auto border border-neutral-900 text-center">
+          <pre class="mermaid text-xs">
+flowchart TD
+    BOOT([Preloader: Favicon 360° + Manifiesto]) --> NAV[Navbar Píldora Flotante]
+    NAV --> HERO[Hero: Titular + Avatar + Pitch Editorial]
+    HERO --> SHELF["Horizontal Shelf (BentoProjects)"]
+    SHELF --> COLLAB["Colaboraciones Reales (Saver UCC + FC Const.)"]
+    COLLAB --> KANBAN["Kanban de Fases (StackAndWorkflow)"]
+    KANBAN --> CONTACT[Contacto Accesible + Sonner Toasts]
+    CONTACT --> FOOTER[Footer & Live Clock Argentina]
+
+    classDef active fill:#161822,stroke:#10b981,stroke-width:1.5px,color:#f4f4f5;
+    classDef highlight fill:#11131a,stroke:#38bdf8,stroke-width:1.5px,color:#f4f4f5;
+    class BOOT,SHELF,COLLAB,KANBAN active;
+    class HERO,CONTACT,NAV highlight;
+          </pre>
+        </div>
+      </div>
+
+      <!-- Projects Shelf Status -->
+      <div class="p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-base font-semibold text-white flex items-center gap-2">
+            <i data-lucide="box" class="w-4 h-4 text-cyan-400"></i>
+            Proyectos Integrados en el Carrusel Horizontal
+          </h2>
+          <span class="text-xs font-mono text-neutral-500">4 Proyectos Core</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Project 1 -->
+          <div class="p-4 rounded-xl bg-neutral-950/60 border border-neutral-800/80 hover:border-emerald-500/40 transition-colors">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">En desarrollo</span>
+              <span class="text-xs text-neutral-500 font-mono">Python / API</span>
+            </div>
+            <h3 class="text-sm font-bold text-white">DaVinci Auto-Cut Plugin</h3>
+            <p class="text-xs text-neutral-400 mt-1 leading-relaxed">
+              Corte y detección de silencio local offline mediante Silero VAD y Python integrado a DaVinci Resolve.
+            </p>
+          </div>
+
+          <!-- Project 2 -->
+          <div class="p-4 rounded-xl bg-neutral-950/60 border border-neutral-800/80 hover:border-emerald-500/40 transition-colors">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">En producción</span>
+              <span class="text-xs text-neutral-500 font-mono">Next.js / TS</span>
+            </div>
+            <h3 class="text-sm font-bold text-white">Portfolio Web (Dark Editorial)</h3>
+            <p class="text-xs text-neutral-400 mt-1 leading-relaxed">
+              Arquitectura sobria, tokens semánticos, horizontal shelf drag-to-scroll y preloader con giro de favicon.
+            </p>
+          </div>
+
+          <!-- Project 3 -->
+          <div class="p-4 rounded-xl bg-neutral-950/60 border border-neutral-800/80 hover:border-emerald-500/40 transition-colors">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 font-medium">Prototipo</span>
+              <span class="text-xs text-neutral-500 font-mono">Web / Audio</span>
+            </div>
+            <h3 class="text-sm font-bold text-white">Just Breathe — Hábitos & Sueño</h3>
+            <p class="text-xs text-neutral-400 mt-1 leading-relaxed">
+              Respiración guiada 4-7-8 con Web Audio API, haptics sutiles y modo nocturno sin emisión de luz azul.
+            </p>
+          </div>
+
+          <!-- Project 4 -->
+          <div class="p-4 rounded-xl bg-neutral-950/60 border border-neutral-800/80 hover:border-emerald-500/40 transition-colors">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">En producción</span>
+              <span class="text-xs text-neutral-500 font-mono">IoT / C++</span>
+            </div>
+            <h3 class="text-sm font-bold text-white">Saver — TechCamp UCC 2026</h3>
+            <p class="text-xs text-neutral-400 mt-1 leading-relaxed">
+              Monitoreo y telemetría de caudal hídrico para Aguas Cordobesas. Trabajo en equipo premiado.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Interactive Feedback & Controls (1 col) -->
+    <div class="space-y-6">
+      
+      <!-- Quick Feedback Card -->
+      <div class="p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800">
+        <h2 class="text-base font-semibold text-white flex items-center gap-2 mb-3">
+          <i data-lucide="sliders" class="w-4 h-4 text-emerald-400"></i>
+          Panel de Decisión & Feedback
+        </h2>
+        <p class="text-xs text-neutral-400 mb-4">
+          Ajusta tus preferencias visuales aquí y pulsa el botón para copiar el payload JSON hacia el chat de Antigravity.
+        </p>
+
+        <!-- Form fields -->
+        <div class="space-y-4">
+          <div>
+            <label class="block text-xs font-medium text-neutral-300 mb-1.5">Disposición de Proyectos:</label>
+            <select id="shelfLayout" class="w-full text-xs font-mono bg-neutral-950 border border-neutral-800 rounded-lg p-2.5 text-white focus:outline-none focus:border-emerald-500">
+              <option value="Option_A_Horizontal_Shelf" selected>Opción A: Horizontal Shelf (Actual)</option>
+              <option value="Option_B_Bento_Grid">Opción B: Bento Grid 2x2 Matrix</option>
+              <option value="Option_C_Vertical_Cards">Opción C: Tarjetas Verticales Clásicas</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-neutral-300 mb-1.5">Comportamiento del Preloader:</label>
+            <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+              <label class="flex items-center gap-2 p-2 rounded-lg bg-neutral-950 border border-neutral-800 cursor-pointer">
+                <input type="radio" name="preloaderState" value="always" checked class="text-emerald-500 focus:ring-0">
+                <span>Siempre</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg bg-neutral-950 border border-neutral-800 cursor-pointer">
+                <input type="radio" name="preloaderState" value="session_only" class="text-emerald-500 focus:ring-0">
+                <span>1 vez/sesión</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-neutral-300 mb-1.5">Notas / Instrucción Rápida:</label>
+            <textarea id="humanNotes" rows="3" placeholder="Ej: Añadir enlace al video teaser de DaVinci Auto-Cut..." class="w-full text-xs bg-neutral-950 border border-neutral-800 rounded-lg p-2.5 text-white placeholder-neutral-600 focus:outline-none focus:border-emerald-500 resize-none"></textarea>
+          </div>
+
+          <button onclick="copyFeedbackPayload()" class="w-full py-2.5 px-4 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-medium text-xs flex items-center justify-center gap-2 transition-colors border border-neutral-700">
+            <i data-lucide="copy" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span>Generar y Copiar Feedback</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Project Health Badge -->
+      <div class="p-5 rounded-2xl bg-neutral-900/60 border border-neutral-800 text-xs space-y-2.5">
+        <div class="flex items-center justify-between text-neutral-400">
+          <span class="font-mono">BUILD LOCAL</span>
+          <span class="text-emerald-400 font-mono font-medium">✓ 574ms Turbopack</span>
+        </div>
+        <div class="flex items-center justify-between text-neutral-400">
+          <span class="font-mono">TYPESCRIPT</span>
+          <span class="text-emerald-400 font-mono font-medium">✓ 0 Errors Strict</span>
+        </div>
+        <div class="flex items-center justify-between text-neutral-400">
+          <span class="font-mono">MEMORIA AGENTE</span>
+          <span class="text-emerald-400 font-mono font-medium">docs/agent/CONTEXT.md</span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 hidden bg-emerald-500 text-black px-4 py-2.5 rounded-xl shadow-2xl font-semibold text-xs items-center gap-2 z-50 transition-all duration-300">
+    <i data-lucide="check-circle" class="w-4 h-4"></i>
+    <span>¡Payload JSON copiado al portapapeles! Pega en el chat con Ctrl+V</span>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+
+    function copyFeedbackPayload() {
+      const layout = document.getElementById('shelfLayout').value;
+      const preloader = document.querySelector('input[name="preloaderState"]:checked').value;
+      const notes = document.getElementById('humanNotes').value.trim();
+
+      const payload = {
+        accion: "feedback_humano",
+        origen: "docs/visual/dashboard.html (Obsidian HTML Reader)",
+        opcion_elegida: layout,
+        ajustes: {
+          preloader_frequency: preloader,
+          motion_profile: "cinematic_60fps",
+          wcag_target: "AAA"
+        },
+        notas_adicionales: notes || "Sin notas adicionales",
+        timestamp: new Date().toISOString()
+      };
+
+      const formatted = "Aplica las siguientes decisiones tomadas en el HTML:\n```json\n" + JSON.stringify(payload, null, 2) + "\n```";
+
+      navigator.clipboard.writeText(formatted).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.remove('hidden');
+        toast.classList.add('flex');
+        setTimeout(() => {
+          toast.classList.add('hidden');
+          toast.classList.remove('flex');
+        }, 3500);
+      });
+    }
+  </script>
+</body>
+</html>

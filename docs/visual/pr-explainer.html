@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explicador Visual de Cambios & Diffs | Portfolio Shair Cuello</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              bg: '#090a0f',
+              surface: '#11131a',
+              card: '#161822',
+              border: '#27272a',
+              accent: '#10b981',
+              cyan: '#38bdf8'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #090a0f;
+      color: #f4f4f5;
+    }
+  </style>
+</head>
+<body class="min-h-screen p-4 md:p-8">
+
+  <!-- Header -->
+  <header class="max-w-6xl mx-auto mb-8 border border-neutral-800 bg-neutral-900/60 backdrop-blur rounded-2xl p-6 shadow-2xl">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+            <i data-lucide="git-pull-request" class="w-3.5 h-3.5"></i>
+            RELEASE / SPRINT REVIEW
+          </span>
+          <span class="text-xs font-mono text-neutral-400">Commit e205733 &middot; Rama main</span>
+        </div>
+        <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight flex items-center gap-2.5">
+          <i data-lucide="diff" class="w-7 h-7 text-emerald-400"></i>
+          Explicador Visual de Cambios, Diffs & Decisiones
+        </h1>
+        <p class="text-neutral-400 text-sm mt-1">
+          Desglose técnico interactivo para Obsidian HTML Reader. Permite validar decisiones de interfaz antes de pasar a nuevas fases.
+        </p>
+      </div>
+
+      <button onclick="copyPRFeedback()" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-sm transition-all duration-150 shadow-lg shadow-emerald-500/20 active:scale-95 cursor-pointer">
+        <i data-lucide="clipboard-check" class="w-4 h-4"></i>
+        <span>Aprobar / Feedback de Cambios</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto space-y-8">
+    
+    <!-- Feature 1: Preloader Terminal Favicon Spin -->
+    <article class="p-6 rounded-2xl bg-neutral-900/50 border border-neutral-800 space-y-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-mono font-bold text-xs border border-emerald-500/20">01</span>
+          <h2 class="text-lg font-bold text-white">Preloader con Favicon 360°, Tipeo Mecánico y Desvelo Diagonal</h2>
+        </div>
+        <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">e205733</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="p-4 rounded-xl bg-neutral-950/70 border border-neutral-800/80">
+          <span class="text-xs font-mono uppercase text-red-400 flex items-center gap-1.5 mb-2">
+            <i data-lucide="x-circle" class="w-3.5 h-3.5"></i> Estado Anterior
+          </span>
+          <p class="text-xs text-neutral-400 leading-relaxed">
+            La página cargaba directamente sin transición inicial. En redes móviles o conexiones lentas, podía apreciarse un salto abrupto en la tipografía y el render de los SVGs.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-neutral-950/70 border border-emerald-500/30 bg-emerald-500/[0.02]">
+          <span class="text-xs font-mono uppercase text-emerald-400 flex items-center gap-1.5 mb-2">
+            <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Solución Implementada
+          </span>
+          <p class="text-xs text-neutral-300 leading-relaxed">
+            Componente <code class="text-emerald-300 bg-neutral-900 px-1 py-0.5 rounded text-[11px]">Preloader.tsx</code> con animación de arranque: logo girando 360° en loop suave, texto "INICIALIZANDO SISTEMA...", y desvelo en diagonal con la frase de manifiesto del autor. Desaparece con un desvanecimiento fluido de 400ms.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Feature 2: Horizontal Shelf Carousel -->
+    <article class="p-6 rounded-2xl bg-neutral-900/50 border border-neutral-800 space-y-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="w-7 h-7 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center font-mono font-bold text-xs border border-cyan-500/20">02</span>
+          <h2 class="text-lg font-bold text-white">Horizontal Shelf Carousel: Enfoque Editorial sin Fricción</h2>
+        </div>
+        <span class="text-xs font-mono text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded">e1d518a / 3d50572</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="p-4 rounded-xl bg-neutral-950/70 border border-neutral-800/80">
+          <span class="text-xs font-mono uppercase text-red-400 flex items-center gap-1.5 mb-2">
+            <i data-lucide="x-circle" class="w-3.5 h-3.5"></i> Estado Anterior (Toggle Bento vs Lista)
+          </span>
+          <p class="text-xs text-neutral-400 leading-relaxed">
+            Existía un botón selector entre Bento Grid y Lista vertical. Obligaba al usuario a interactuar antes de entender el contenido y generaba layout shifts en dispositivos táctiles.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-neutral-950/70 border border-cyan-500/30 bg-cyan-500/[0.02]">
+          <span class="text-xs font-mono uppercase text-cyan-400 flex items-center gap-1.5 mb-2">
+            <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Solución Implementada (Opción A)
+          </span>
+          <p class="text-xs text-neutral-300 leading-relaxed">
+            Se unificó en un <strong>Horizontal Shelf</strong> continuo con soporte nativo de arrastrar para desplazar (drag-to-scroll), flechas flotantes de paginación con teclado, contador visual <code class="text-cyan-300 font-mono text-[11px]">1 / 4</code> y barra de progreso inferior en tiempo real.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Feature 3: Unified Kanban Workflow -->
+    <article class="p-6 rounded-2xl bg-neutral-900/50 border border-neutral-800 space-y-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center font-mono font-bold text-xs border border-amber-500/20">03</span>
+          <h2 class="text-lg font-bold text-white">Kanban de Fases con Desvelo Difuminado Gaussiano</h2>
+        </div>
+        <span class="text-xs font-mono text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded">35d5320</span>
+      </div>
+
+      <div class="p-4 rounded-xl bg-neutral-950/70 border border-neutral-800/80 text-xs text-neutral-300 leading-relaxed space-y-2">
+        <p>
+          En <code class="text-amber-300 bg-neutral-900 px-1 py-0.5 rounded font-mono">StackAndWorkflow.tsx</code> se reorganizó la vista de habilidades y metodología en un Kanban dividido en 4 columnas temáticas: <em>Arquitectura & IA</em>, <em>Frontend & Motion</em>, <em>Video & Automatización</em> y <em>Tooling & Ops</em>.
+        </p>
+        <p>
+          Al alternar entre pestañas o desplazarse verticalmente, las tarjetas aplican una transición de desvelo difuminado gaussiano (<code class="font-mono text-amber-400">filter: blur(8px) -> blur(0px)</code>) respetando los 60 FPS sin provocar repaints pesados.
+        </p>
+      </div>
+    </article>
+
+    <!-- Interactive Approval Card -->
+    <section class="p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 space-y-4">
+      <h3 class="text-base font-bold text-white flex items-center gap-2">
+        <i data-lucide="check-square" class="w-4 h-4 text-emerald-400"></i>
+        Validación del Humano para el Agente
+      </h3>
+      <p class="text-xs text-neutral-400">
+        ¿Estás de acuerdo con mantener estos cambios en la versión de producción o deseas ajustes sobre el carrusel y el preloader?
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <label class="p-3.5 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center gap-3 cursor-pointer hover:border-emerald-500/40">
+          <input type="radio" name="prDecision" value="APROBADO_CONFORME" checked class="text-emerald-500">
+          <div>
+            <div class="text-xs font-bold text-white">Aprobar Todo</div>
+            <div class="text-[11px] text-neutral-400">Mantener carrusel y preloader actuales</div>
+          </div>
+        </label>
+
+        <label class="p-3.5 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center gap-3 cursor-pointer hover:border-amber-500/40">
+          <input type="radio" name="prDecision" value="AJUSTE_PRELOADER" class="text-amber-500">
+          <div>
+            <div class="text-xs font-bold text-white">Ajustar Preloader</div>
+            <div class="text-[11px] text-neutral-400">Hacerlo más corto o solo en primera visita</div>
+          </div>
+        </label>
+
+        <label class="p-3.5 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center gap-3 cursor-pointer hover:border-cyan-500/40">
+          <input type="radio" name="prDecision" value="AJUSTE_CAROUSEL" class="text-cyan-500">
+          <div>
+            <div class="text-xs font-bold text-white">Ajustar Carrusel</div>
+            <div class="text-[11px] text-neutral-400">Modificar sensibilidad o tarjetas visibles</div>
+          </div>
+        </label>
+      </div>
+
+      <div class="pt-2">
+        <button onclick="copyPRFeedback()" class="w-full md:w-auto px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs flex items-center justify-center gap-2 transition-all">
+          <i data-lucide="clipboard-copy" class="w-4 h-4"></i>
+          <span>Copiar Decisión para el Agente (Ctrl+V en Chat)</span>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 hidden bg-emerald-500 text-black px-4 py-2.5 rounded-xl shadow-2xl font-semibold text-xs items-center gap-2 z-50">
+    <i data-lucide="check-circle" class="w-4 h-4"></i>
+    <span>¡Decisión copiada al portapapeles! Pega en el chat con Ctrl+V</span>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    function copyPRFeedback() {
+      const decision = document.querySelector('input[name="prDecision"]:checked').value;
+      const payload = {
+        accion: "feedback_humano",
+        origen: "docs/visual/pr-explainer.html (Obsidian HTML Reader)",
+        opcion_elegida: decision,
+        revision_commits: ["e205733", "8d02f9a", "e1d518a", "3d50572", "35d5320"],
+        timestamp: new Date().toISOString()
+      };
+
+      const formatted = "Aplica las siguientes decisiones tomadas en el HTML:\n```json\n" + JSON.stringify(payload, null, 2) + "\n```";
+
+      navigator.clipboard.writeText(formatted).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.remove('hidden');
+        toast.classList.add('flex');
+        setTimeout(() => {
+          toast.classList.add('hidden');
+          toast.classList.remove('flex');
+        }, 3500);
+      });
+    }
+  </script>
+</body>
+</html>
