@@ -191,7 +191,11 @@ export function Hero() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={profile.avatarUrl}
-                alt={profile.name}
+                alt={`Retrato profesional de ${profile.name} — AI Product Builder & Creative Technologist`}
+                width={192}
+                height={224}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full rounded-[22px] object-cover grayscale contrast-105 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
               />
               <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10" />

@@ -297,7 +297,7 @@ export function Collaborations() {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface hover:bg-surface-hover border border-border text-muted hover:text-foreground transition-colors"
         >
-          <LinkedinIcon className="w-3 h-3 text-accent-sky" />
+          <LinkedinIcon className="w-3 h-3 text-accent-sky" aria-hidden="true" />
           <span>Santiago Román</span>
         </a>
         <a
@@ -306,7 +306,7 @@ export function Collaborations() {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface hover:bg-surface-hover border border-border text-muted hover:text-foreground transition-colors"
         >
-          <LinkedinIcon className="w-3 h-3 text-accent-sky" />
+          <LinkedinIcon className="w-3 h-3 text-accent-sky" aria-hidden="true" />
           <span>Santiago Garay Allasia</span>
         </a>
         <a
@@ -315,7 +315,7 @@ export function Collaborations() {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface hover:bg-surface-hover border border-border text-muted hover:text-foreground transition-colors"
         >
-          <LinkedinIcon className="w-3 h-3 text-accent-sky" />
+          <LinkedinIcon className="w-3 h-3 text-accent-sky" aria-hidden="true" />
           <span>Faustino Pedone López</span>
         </a>
         <a
@@ -324,7 +324,7 @@ export function Collaborations() {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface hover:bg-surface-hover border border-border text-muted hover:text-foreground transition-colors"
         >
-          <LinkedinIcon className="w-3 h-3 text-accent-sky" />
+          <LinkedinIcon className="w-3 h-3 text-accent-sky" aria-hidden="true" />
           <span>Bruno Ángel Segura Marsal</span>
         </a>
       </div>
@@ -408,7 +408,7 @@ export function Collaborations() {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-hover hover:bg-white/[0.08] border border-border text-xs font-mono text-muted hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                       >
-                        <LinkedinIcon className="w-3 h-3 text-accent-sky" />
+                        <LinkedinIcon className="w-3 h-3 text-accent-sky" aria-hidden="true" />
                         <span>{member.name}</span>
                         <ArrowUpRight className="w-3 h-3 opacity-50" />
                       </a>

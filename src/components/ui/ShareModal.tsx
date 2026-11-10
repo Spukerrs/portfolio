@@ -120,10 +120,14 @@ export function ShareModal({ isOpen, onClose }: ShareModalProps) {
               <img
                 src="/opengraph-image.png"
                 alt="Vista previa de tarjeta OpenGraph de Shair Cuello"
+                width={1200}
+                height={630}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-auto aspect-[1200/630] object-cover"
               />
               <div className="p-3 bg-surface/90 border-t border-border/60 flex items-center justify-between text-xs font-mono">
-                <span className="text-muted-dark truncate">shaircuello.vercel.app</span>
+                <span className="text-muted-dark truncate">spukerrs.vercel.app</span>
                 <span className="text-accent text-[11px] font-semibold">OpenGraph 1200×630</span>
               </div>
             </div>
@@ -146,7 +150,7 @@ export function ShareModal({ isOpen, onClose }: ShareModalProps) {
                 rel="noopener noreferrer"
                 className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-background hover:bg-white/[0.06] border border-border text-muted hover:text-foreground transition-all text-xs font-mono group"
               >
-                <LinkedinIcon className="w-4 h-4 text-accent-sky group-hover:scale-110 transition-transform" />
+                <LinkedinIcon className="w-4 h-4 text-accent-sky group-hover:scale-110 transition-transform" aria-hidden="true" />
                 <span>LinkedIn</span>
               </a>
 

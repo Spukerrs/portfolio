@@ -24,13 +24,16 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://shaircuello.vercel.app"),
+  metadataBase: new URL("https://spukerrs.vercel.app"),
+  alternates: {
+    canonical: "https://spukerrs.vercel.app",
+  },
   title: {
     default: "Shair Cuello — AI Product Builder & Creative Technologist",
     template: "%s | Shair Cuello",
   },
   description:
-    "Transformo problemas reales en software funcional, herramientas de automatización y flujos audiovisuales combinando arquitectura de producto e inteligencia artificial.",
+    "Transformo problemas en software funcional, herramientas de automatización y flujos audiovisuales con arquitectura de producto e inteligencia artificial.",
   keywords: [
     "Shair Fernando Cuello López",
     "spukerrs",
@@ -46,10 +49,10 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "es_AR",
-    url: "https://shaircuello.vercel.app",
+    url: "https://spukerrs.vercel.app",
     title: "Shair Cuello — AI Product Builder & Creative Technologist",
     description:
-      "Transformo problemas reales en software funcional, herramientas de automatización y flujos audiovisuales combinando arquitectura de producto e inteligencia artificial.",
+      "Transformo problemas en software funcional, herramientas de automatización y flujos audiovisuales con arquitectura de producto e inteligencia artificial.",
     siteName: "Shair Cuello Portfolio",
     images: [
       {
@@ -64,7 +67,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Shair Cuello — AI Product Builder & Creative Technologist",
     description:
-      "Transformo problemas reales en software funcional, herramientas de automatización y flujos audiovisuales combinando arquitectura de producto e inteligencia artificial.",
+      "Transformo problemas en software funcional, herramientas de automatización y flujos audiovisuales con arquitectura de producto e inteligencia artificial.",
     creator: "@spukerrs",
     images: ["/opengraph-image.png"],
   },
@@ -81,6 +84,65 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://spukerrs.vercel.app/#person",
+      name: "Shair Fernando Cuello López",
+      alternateName: "spukerrs",
+      url: "https://spukerrs.vercel.app",
+      image: "https://spukerrs.vercel.app/profile/avatar.webp",
+      jobTitle: "AI Product Builder & Creative Technologist",
+      description:
+        "Transformo problemas en software funcional, herramientas de automatización y flujos audiovisuales con arquitectura de producto e inteligencia artificial.",
+      email: "cuello.shair@gmail.com",
+      sameAs: [
+        "https://github.com/Spukerrs",
+        "https://www.linkedin.com/in/shair-fernando-cuello-lopez-86364529a",
+      ],
+      knowsAbout: [
+        "Artificial Intelligence",
+        "Agentic Workflows",
+        "DaVinci Resolve API",
+        "Python",
+        "TypeScript",
+        "Next.js",
+        "Product Engineering",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://spukerrs.vercel.app/#website",
+      url: "https://spukerrs.vercel.app",
+      name: "Shair Cuello Portfolio",
+      alternateName: "spukerrs.dev",
+      description:
+        "Transformo problemas en software funcional, herramientas de automatización y flujos audiovisuales con arquitectura de producto e inteligencia artificial.",
+      publisher: {
+        "@id": "https://spukerrs.vercel.app/#person",
+      },
+      inLanguage: "es",
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://spukerrs.vercel.app/#profilepage",
+      url: "https://spukerrs.vercel.app",
+      name: "Shair Cuello — AI Product Builder & Creative Technologist",
+      isPartOf: {
+        "@id": "https://spukerrs.vercel.app/#website",
+      },
+      mainEntity: {
+        "@id": "https://spukerrs.vercel.app/#person",
+      },
+      dateCreated: "2026-11-02",
+      dateModified: "2026-11-10",
+      inLanguage: "es",
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -91,6 +153,12 @@ export default function RootLayout({
       lang="es"
       className={`${plusJakartaSans.variable} ${jetbrainsMono.variable} dark`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-screen bg-background text-foreground antialiased selection:bg-accent/25 selection:text-foreground">
         {children}
         <Toaster

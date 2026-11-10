@@ -283,7 +283,9 @@ function ShelfProjectCard({ project }: { project: Project }) {
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={project.media.src}
-                  alt={project.media.alt || project.title}
+                  alt={project.media.alt || `Captura del proyecto ${project.title}`}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
               )}
